@@ -1,0 +1,12 @@
+C:\dev\Marathon\Backend\Backend.Domain.Service\bin\Debug\net8.0\Backend.Domain.Service.deps.json
+C:\dev\Marathon\Backend\Backend.Domain.Service\bin\Debug\net8.0\Backend.Domain.Service.dll
+C:\dev\Marathon\Backend\Backend.Domain.Service\bin\Debug\net8.0\Backend.Domain.Service.pdb
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.AssemblyInfoInputs.cache
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.AssemblyInfo.cs
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.csproj.CoreCompileInputs.cache
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.sourcelink.json
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.dll
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\refint\Backend.Domain.Service.dll
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\Backend.Domain.Service.pdb
+C:\dev\Marathon\Backend\Backend.Domain.Service\obj\Debug\net8.0\ref\Backend.Domain.Service.dll

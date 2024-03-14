@@ -1,0 +1,13 @@
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\bin\Debug\net8.0\Backend.Infra.EntityLibrary.deps.json
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\bin\Debug\net8.0\Backend.Infra.EntityLibrary.dll
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\bin\Debug\net8.0\Backend.Infra.EntityLibrary.pdb
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.csproj.AssemblyReference.cache
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.AssemblyInfoInputs.cache
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.AssemblyInfo.cs
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.csproj.CoreCompileInputs.cache
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.sourcelink.json
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.dll
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\refint\Backend.Infra.EntityLibrary.dll
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\Backend.Infra.EntityLibrary.pdb
+C:\dev\Marathon\Backend\Backend.Infra.EntityLibrary\obj\Debug\net8.0\ref\Backend.Infra.EntityLibrary.dll
