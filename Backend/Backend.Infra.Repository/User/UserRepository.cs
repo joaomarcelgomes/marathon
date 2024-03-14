@@ -22,4 +22,7 @@ public class UserRepository(DataContext context) : IUserRepository
 
     public async Task<bool> EmailExists(string email) 
         => await context.Users.AnyAsync(x => x.Email == email);
+
+    public async Task<bool> Login(string email, string password)
+        => await context.Users.AnyAsync(x => x.Email == email && x.Password == password);
 }

@@ -29,7 +29,8 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICreateUserService, CreateUserService>(); 
+builder.Services.AddScoped<ICreateUserService, CreateUserService>();
+builder.Services.AddScoped<ILoginUserService, LoginUserService>(); 
 
 var app = builder.Build();
 
