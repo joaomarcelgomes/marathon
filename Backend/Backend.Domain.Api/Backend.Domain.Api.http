@@ -1,4 +1,0 @@
-POST http://localhost:5280/user/create
-Accept: application/json
-
-###
