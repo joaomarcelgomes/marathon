@@ -1,10 +1,11 @@
 import './Login.css'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     return(
         <div className='div-pai'>
             <form>
-                <img className='mb-5 mt-3' src="/marathon-logo.png" alt="logo marathon" />
+                <Link to="/"><img className='mb-5 mt-3' src="/marathon-logo.png" alt="logo marathon" /></Link>
                 <div className="form-floating mb-3">
                     
                     <div className="input-group mb-4">
@@ -24,7 +25,7 @@ const Login = () => {
                     
                 </div>
                     <input className="btn btn-primary color-custom w-100" type="submit" value="Entrar" />
-                    <label className='mt-4' htmlFor="">Ainda não tem uma conta? </label> <label htmlFor="" className='font-custom'>Cadastre-se</label>
+                    <label className='mt-4' htmlFor="">Ainda não tem uma conta? </label> <Link to="/cadastro"><label htmlFor="" className='font-custom'>Cadastre-se</label></Link>
             </form>
         </div>
     )

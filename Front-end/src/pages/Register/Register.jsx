@@ -1,10 +1,11 @@
 import './Register.css';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     return (
         <div className="w-100 m-auto font-custom-div">
             <form>
-                <img className='mb-5 mt-3' src="/marathon-logo.png" alt="logo marathon" />
+            <Link to="/"><img className='mb-5 mt-3' src="/marathon-logo.png" alt="logo marathon" /></Link>
                 <div className="form-floating mb-3">
                     <div className="input-group mb-4 mt-4">
                         <span className="input-group-text background-custom border-0">
@@ -35,7 +36,7 @@ const Register = () => {
                     </div>
                 </div>
                     <input className="btn btn-primary color-custom w-100" type="submit" value="Cadastrar" />
-                    <label className='mt-4' htmlFor="">Já possui uma conta? </label> <label htmlFor="" className='font-custom'>Entre</label>
+                    <label className='mt-4' htmlFor="">Já possui uma conta? </label> <Link to="/"><label htmlFor="" className='font-custom'>Entre</label></Link>
             </form>
         </div>
     )
