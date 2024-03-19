@@ -1,0 +1,29 @@
+.btn.color-custom {
+    background-color: #04A33A;
+    color: white;
+    border-color: #04A33A; 
+    font-family: 'Inter', sans-serif;
+}
+.btn.color-custom:hover,
+.btn.color-custom:focus {
+    background-color: #03582F;
+    border-color: #03582F;
+  }
+
+.w-100.m-auto.font-custom-div {
+    font-family: 'Inter', sans-serif;
+}
+
+.input-group-text.background-custom{
+    background-color: #363636;
+}
+.form-control.background-custom{
+    background-color: #363636;
+}
+
+
+
+.font-custom{
+    font-family: 'Inter', sans-serif;
+    color: #04A33A;
+}
