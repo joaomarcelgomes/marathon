@@ -73,4 +73,34 @@ public class TeamController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
+    
+    [HttpPut("edit/:id")]
+    public async Task<ActionResult> Edit([FromServices] IEditTeamService teamService, int id, [FromBody] TeamCreateRequest request)
+    {
+        try
+        {
+            await teamService.EditTeam(id, request.Name, request.ImageUrl, request.ShortName, request.Members);
+            
+            return Ok(new { success = true, message = "Time editado com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
+    
+    [HttpDelete("remove/:id")]
+    public async Task<ActionResult> Remove([FromServices] IRemoveTeamService teamService, int id)
+    {
+        try
+        {
+            await teamService.RemoveTeam(id);
+            
+            return Ok(new { success = true, message = "Time removido com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
 }

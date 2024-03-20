@@ -35,4 +35,18 @@ public class TeamRepository(DataContext context) : ITeamRepository
         await context.Teams.AddAsync(team);
         await context.SaveChangesAsync();
     }
+    
+    public async Task Edit(EntityLibrary.Entities.Team team)
+    {
+        context.Teams.Update(team);
+        await context.SaveChangesAsync();
+    }
+
+    public Task Delete(int teamId)
+    {
+        var team = context.Teams.First(x => x.Id == teamId);
+        
+        context.Teams.Remove(team);
+        return context.SaveChangesAsync();
+    }
 }
