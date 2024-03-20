@@ -1,4 +1,4 @@
-﻿namespace Backend.Domain.Api.Models;
+﻿namespace Backend.Domain.Api.Models.Requests;
 
 public class UserCreateRequest
 {

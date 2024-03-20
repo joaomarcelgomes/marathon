@@ -2,6 +2,7 @@ using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
 using Backend.Domain.Service.Services.Interfaces;
 using Backend.Infra.EntityLibrary.Data;
+using Backend.Infra.Repository.Team;
 using Backend.Infra.Repository.User;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +30,11 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ICreateUserService, CreateUserService>();
-builder.Services.AddScoped<ILoginUserService, LoginUserService>(); 
+builder.Services.AddScoped<ILoginUserService, LoginUserService>();
+builder.Services.AddScoped<ISearchTeamService, SearchTeamService>();
+builder.Services.AddScoped<ICreateTeamService, CreateTeamService>(); 
 
 var app = builder.Build();
 
