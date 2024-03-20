@@ -18,7 +18,7 @@ public class CreateUserServiceTests
         var exception = await Assert.ThrowsAsync<ArgumentException>(async () => 
             await service.Create(name, email, password));
         
-        Assert.Equal("O nome do usuário precisa ter pelo menos 5 caracteres", exception.Message);
+        Assert.Equal("O nome do usuário precisa ter pelo menos 4 caracteres", exception.Message);
     }
     
     [Theory]

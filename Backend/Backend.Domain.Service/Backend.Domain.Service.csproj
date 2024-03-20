@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Backend.Infra.EntityLibrary\Backend.Infra.EntityLibrary.csproj" />
+    </ItemGroup>
+
 </Project>
