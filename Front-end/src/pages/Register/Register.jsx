@@ -1,9 +1,9 @@
 import './Register.css'
-import { Link } from 'react-router-dom'
-
-import urlApi from '../../axios/config'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
+import urlApi from '@/axios/config'
+import InputGroup from '@/components/InputGroup'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -50,54 +50,39 @@ const Register = () => {
           />
         </Link>
         <div className="form-floating mb-3">
-          <div className="input-group mb-4 mt-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/person-icon.png" alt="pessoa" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="text"
               name="name"
               placeholder="Nome Completo"
+              iconSrc="/person-icon.png"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
-          <div className="input-group mb-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/email-icon.png" alt="email" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="email"
               name="email"
               placeholder="Email"
+              iconSrc="/email-icon.png"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
-          <div className="input-group mb-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/lock-icon.png" alt="password" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="password"
               name="password"
-              placeholder="Senha"
+              placeholder="Email"
+              iconSrc="/lock-icon.png"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
-          <div className="input-group mb-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/lock-icon.png" alt="password" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="password"
               name="confirmPassword"
               placeholder="Confirmar Senha"
+              iconSrc="/lock-icon.png"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>

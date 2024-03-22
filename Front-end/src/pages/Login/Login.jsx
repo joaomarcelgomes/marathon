@@ -1,6 +1,8 @@
 import './Login.css'
 import { Link } from 'react-router-dom'
 
+import InputGroup from '@/components/InputGroup'
+
 const Login = () => {
   return (
     <div className="div-pai">
@@ -13,27 +15,20 @@ const Login = () => {
           />
         </Link>
         <div className="form-floating mb-3">
-          <div className="input-group mb-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/email-icon.png" alt="email" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="email"
               name="email"
               placeholder="Informe seu email"
+              iconSrc="/email-icon.png"
             />
           </div>
-
-          <div className="input-group mb-4">
-            <span className="input-group-text background-custom border-0">
-              <img src="/lock-icon.png" alt="password" />
-            </span>
-            <input
-              className="form-control background-custom border-0 form-control-lg"
+          <div className="mb-4">
+            <InputGroup
               type="password"
               name="password"
               placeholder="Informe sua senha"
+              iconSrc="/lock-icon.png"
             />
           </div>
         </div>
