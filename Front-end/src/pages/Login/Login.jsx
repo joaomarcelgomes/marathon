@@ -2,11 +2,40 @@ import './Login.css'
 import { Link } from 'react-router-dom'
 
 import InputGroup from '@/components/InputGroup'
+import urlApi from '@/axios/config'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [error, setError] = useState()
+
+  const logarUser = async (e) =>{
+    e.preventDefault()
+    if(!email || !password){
+      setError("Por favor, preenchar todos os campos")
+      return
+    }
+
+    const user = {
+      email, 
+      password
+    }
+
+    try {
+      await urlApi.post('/user/login', user)
+      navigate('/')
+    } catch (error) {
+      console.error('Erro ao encontrar usuário:', error)
+      setError("Usuário inválido")
+    }
+  }
+
   return (
     <div className="div-pai">
-      <form>
+      <form onSubmit={(e) => logarUser(e)}>
         <Link to="/">
           <img
             className="mb-5 mt-3"
@@ -21,6 +50,7 @@ const Login = () => {
               name="email"
               placeholder="Informe seu email"
               iconSrc="/email-icon.png"
+              onChange = {(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -29,9 +59,16 @@ const Login = () => {
               name="password"
               placeholder="Informe sua senha"
               iconSrc="/lock-icon.png"
+              onChange = {(e) => setPassword(e.target.value) }
             />
           </div>
         </div>
+        { error && (
+          <div className='alert alert-danger' role='alert'>
+            {error}
+          </div>
+        )
+        }
         <input
           className="btn btn-primary color-custom w-100"
           type="submit"
