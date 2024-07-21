@@ -13,3 +13,6 @@ Programa para gerenciamento de maratona de programação.
 
 ## Contribuidores
 [![contributors](https://contrib.rocks/image?repo=joaomarcelgomes/marathon)](https://github.com/joaomarcelgomes/marathon/graphs/contributors)
+
+## Documentação
+Para mais detalhes consulte a [documentação](./docs/).
