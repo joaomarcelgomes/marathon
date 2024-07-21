@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
 import urlApi from '@/axios/config'
-import InputGroup from '@/components/InputGroup'
+import InputIcon from '@/components/InputIcon/InputIcon'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -51,7 +51,7 @@ const Register = () => {
         </Link>
         <div className="form-floating mb-3">
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="text"
               name="name"
               placeholder="Nome Completo"
@@ -60,7 +60,7 @@ const Register = () => {
             />
           </div>
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="email"
               name="email"
               placeholder="Email"
@@ -69,7 +69,7 @@ const Register = () => {
             />
           </div>
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="password"
               name="password"
               placeholder="Email"
@@ -78,7 +78,7 @@ const Register = () => {
             />
           </div>
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="password"
               name="confirmPassword"
               placeholder="Confirmar Senha"

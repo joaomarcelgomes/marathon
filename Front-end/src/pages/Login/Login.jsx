@@ -1,10 +1,9 @@
 import './Login.css'
-import { Link } from 'react-router-dom'
-
-import InputGroup from '@/components/InputGroup'
-import urlApi from '@/axios/config'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
+import urlApi from '@/axios/config'
+import InputIcon from '@/components/InputIcon'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -12,16 +11,16 @@ const Login = () => {
   const [password, setPassword] = useState()
   const [error, setError] = useState()
 
-  const logarUser = async (e) =>{
+  const logarUser = async (e) => {
     e.preventDefault()
-    if(!email || !password){
-      setError("Por favor, preenchar todos os campos")
+    if (!email || !password) {
+      setError('Por favor, preenchar todos os campos')
       return
     }
 
     const user = {
-      email, 
-      password
+      email,
+      password,
     }
 
     try {
@@ -29,7 +28,7 @@ const Login = () => {
       navigate('/')
     } catch (error) {
       console.error('Erro ao encontrar usuário:', error)
-      setError("Usuário inválido")
+      setError('Usuário inválido')
     }
   }
 
@@ -45,30 +44,29 @@ const Login = () => {
         </Link>
         <div className="form-floating mb-3">
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="email"
               name="email"
               placeholder="Informe seu email"
               iconSrc="/email-icon.png"
-              onChange = {(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <InputGroup
+            <InputIcon
               type="password"
               name="password"
               placeholder="Informe sua senha"
               iconSrc="/lock-icon.png"
-              onChange = {(e) => setPassword(e.target.value) }
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
         </div>
-        { error && (
-          <div className='alert alert-danger' role='alert'>
+        {error && (
+          <div className="alert alert-danger" role="alert">
             {error}
           </div>
-        )
-        }
+        )}
         <input
           className="btn btn-primary color-custom w-100"
           type="submit"

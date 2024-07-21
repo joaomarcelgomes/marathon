@@ -1,8 +1,7 @@
-import './styles.css'
-
+import './InputIcon.css'
 import PropTypes from 'prop-types'
 
-const InputGroup = ({ iconSrc, ...rest }) => {
+const InputIcon = ({ iconSrc, ...rest }) => {
   return (
     <div className="input-group">
       <span className="input-group-text background-custom border-0">
@@ -16,8 +15,8 @@ const InputGroup = ({ iconSrc, ...rest }) => {
   )
 }
 
-InputGroup.propTypes = {
+InputIcon.propTypes = {
   iconSrc: PropTypes.string.isRequired,
 }
 
-export default InputGroup
+export default InputIcon
