@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  min-width: 420px;
+  max-width: 1280px;
+  min-height: 100vh;
+  padding: 0 1.5rem;
+  align-items: center;
+}
+
+.wrapper {
+  padding: 2rem;
+  margin: 0 auto;
+  min-width: 320px;
+  text-align: center;
+}
