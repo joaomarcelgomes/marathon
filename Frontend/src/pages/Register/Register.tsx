@@ -4,7 +4,7 @@ import InputIcon from '@/components/InputIcon'
 import PersonIcon from '/icons/person.svg'
 import EmailIcon from '/icons/email.svg'
 import LockIcon from '/icons/lock.svg'
-import api from '@/lib/axios/api'
+import useAuth from '@/hooks/use-auth'
 import zod from 'zod'
 
 const schema = zod
@@ -20,6 +20,7 @@ const schema = zod
   })
 
 export function Register() {
+  const { register } = useAuth()
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -38,8 +39,8 @@ export function Register() {
     }
 
     try {
-      const data = schema.parse(form)
-      await api.post('/login', data)
+      schema.parse(form)
+      await register(name, email, password)
       navigate('/')
     } catch (error) {
       if (error instanceof zod.ZodError) {

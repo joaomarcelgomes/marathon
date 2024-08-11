@@ -35,7 +35,7 @@ export const Sidebar: React.FC = () => {
           </ul>
           <ul className="nav nav-pills nav-flush flex-sm-column justify-content-sm-end flex-row h-100 px-3 align-items-center">
             <Item href="/perfil" icon="/icons/settings.svg" />
-            <Item href="/login" icon="/icons/logout.svg" />
+            <Item href="/logout" icon="/icons/logout.svg" />
           </ul>
         </nav>
       </div>

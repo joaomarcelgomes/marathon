@@ -1,28 +1,42 @@
 import '@/styles/app.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import useAuth from '@/hooks/use-auth'
 
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import Teams from '@/pages/Teams'
-import Competitions from '@/pages/Competitions'
-import Profile from '@/pages/Profile'
+import PUBLIC from '@/routes/public'
+import PRIVATE from '@/routes/private'
 
 function App() {
   return (
-    <div className="app">
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Register />} />
-          <Route path="/times" element={<Teams />} />
-          <Route path="/competicoes" element={<Competitions />} />
-          <Route path="/perfil" element={<Profile />} />
+          {PUBLIC.map((route, key) => (
+            <Route key={key} path={route.path} element={route.element} />
+          ))}
+          {PRIVATE.map((route, key) => (
+            <Route
+              key={key}
+              path={route.path}
+              element={<Private>{route.element}</Private>}
+            />
+          ))}
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   )
+}
+
+const Private: React.FC<{
+  children: React.ReactNode
+}> = ({ children }) => {
+  const { loading, authenticated } = useAuth()
+
+  if (loading) {
+    return <></>
+  }
+
+  return authenticated ? children : <Navigate to="/login" replace />
 }
 
 export default App

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import InputIcon from '@/components/InputIcon'
 import EmailIcon from '/icons/email.svg'
 import LockIcon from '/icons/lock.svg'
-import api from '@/lib/axios/api'
+import useAuth from '@/hooks/use-auth'
 import zod from 'zod'
 
 const schema = zod.object({
@@ -12,6 +12,7 @@ const schema = zod.object({
 })
 
 export function Login() {
+  const { signin } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,8 +24,8 @@ export function Login() {
     const form = { email, password }
 
     try {
-      const data = schema.parse(form)
-      await api.post('/login', data)
+      schema.parse(form)
+      await signin(email, password)
       navigate('/')
     } catch (error) {
       if (error instanceof zod.ZodError) {

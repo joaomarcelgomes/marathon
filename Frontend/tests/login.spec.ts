@@ -1,8 +1,7 @@
 import { test, expect } from 'vitest'
-import api from '../src/lib/axios/api'
-import user from '../src/mocks/user'
+import api from '../src/lib/axios/config'
 
-test('Should return the logged user', async () => {
+test('Should return token JWT and user', async () => {
   const data = {
     email: 'johndoe@mock.com',
     password: 'passmock123',
@@ -10,5 +9,11 @@ test('Should return the logged user', async () => {
 
   const response = await api.post('/login', data)
   expect(response.status).toBe(200)
-  expect(response.data).toEqual(user)
+  expect(response.data.success).toEqual(true)
+  expect(response.data.message).toBeTypeOf('string')
+  expect(response.data.data.token).toBeTypeOf('string')
+  expect(response.data.data.user).toHaveProperty('id')
+  expect(response.data.data.user).toHaveProperty('name')
+  expect(response.data.data.user.email).toEqual(data.email)
+  expect(response.data.data.user).toHaveProperty('avatar')
 })
