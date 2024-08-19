@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import InputIcon from '@/components/InputIcon'
-import PersonIcon from '/icons/person.svg'
-import EmailIcon from '/icons/email.svg'
-import LockIcon from '/icons/lock.svg'
 import useAuth from '@/hooks/use-auth'
+import InputIcon from '@/components/InputIcon'
+import Icon from '@/components/Icon'
 import zod from 'zod'
 
 const schema = zod
@@ -69,7 +67,7 @@ export function Register() {
             placeholder="Nome completo"
             onChange={(e) => setName(e.target.value)}
             value={name}
-            icon={PersonIcon}
+            icon={<Icon.Person />}
             required
           />
           <InputIcon
@@ -77,7 +75,7 @@ export function Register() {
             placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            icon={EmailIcon}
+            icon={<Icon.Email />}
             required
           />
           <InputIcon
@@ -85,7 +83,7 @@ export function Register() {
             placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            icon={LockIcon}
+            icon={<Icon.Lock />}
             required
           />
           <InputIcon
@@ -93,7 +91,7 @@ export function Register() {
             placeholder="Confirmar senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
-            icon={LockIcon}
+            icon={<Icon.Lock />}
             required
           />
           {error && (

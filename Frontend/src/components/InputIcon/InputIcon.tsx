@@ -1,8 +1,8 @@
-import React from 'react'
+import { type IconProps } from '@/components/Icon'
 
 export interface InputIconProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  icon: string
+  icon: React.ReactElement<IconProps>
 }
 
 export const InputIcon: React.FC<InputIconProps> = (props) => {
@@ -10,9 +10,7 @@ export const InputIcon: React.FC<InputIconProps> = (props) => {
 
   return (
     <div className="input-group">
-      <div className="input-group-text background-3 border-0">
-        <img src={icon} width={16} height={16} />
-      </div>
+      <div className="input-group-text background-3 border-0">{icon}</div>
       <input
         className="form-control form-control-lg background-3 border-0"
         {...inputProps}

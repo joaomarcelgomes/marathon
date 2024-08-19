@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import InputIcon from '@/components/InputIcon'
-import EmailIcon from '/icons/email.svg'
-import LockIcon from '/icons/lock.svg'
 import useAuth from '@/hooks/use-auth'
+import InputIcon from '@/components/InputIcon'
+import Icon from '@/components/Icon'
 import zod from 'zod'
 
 const schema = zod.object({
@@ -54,7 +53,7 @@ export function Login() {
             placeholder="Informe seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            icon={EmailIcon}
+            icon={<Icon.Email />}
             required
           />
           <InputIcon
@@ -62,7 +61,7 @@ export function Login() {
             placeholder="Informe sua senha"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
-            icon={LockIcon}
+            icon={<Icon.Lock />}
             required
           />
           {error && (
