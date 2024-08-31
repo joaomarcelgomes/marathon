@@ -8,14 +8,14 @@ namespace Backend.Domain.Api.Controllers;
 [Route("user")]
 public class UserController : ControllerBase
 {
-    [HttpPost("create")]
+    [HttpPost]
     public async Task<ActionResult> Create([FromServices] ICreateUserService userService, [FromBody] UserCreateRequest request)
     {
         try
         {
-            await userService.Create(request.Name, request.Avatar, request.Email, request.Password);
+            var (user, token) = await userService.Create(request.Name, request.Avatar, request.Email, request.Password);
             
-            return Ok(new { success = true, message = "Usuário criado com sucesso" });
+            return Ok(new { success = true, message = "Usuário criado com sucesso", data = new { user, token } });
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {

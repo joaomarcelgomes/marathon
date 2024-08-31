@@ -1,4 +1,5 @@
-﻿using Backend.Domain.Service.Repositories;
+﻿using Backend.Domain.Service.Models.Responses;
+using Backend.Domain.Service.Repositories;
 using Backend.Infra.EntityLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Entities = Backend.Infra.EntityLibrary.Entities;
@@ -7,7 +8,7 @@ namespace Backend.Infra.Repository.User;
 
 public class UserRepository(DataContext context) : IUserRepository
 {
-    public async Task Create(string name, string avatar, string email, string password)
+    public async Task<Entities.User> Create(string name, string avatar, string email, string password)
     {
         var user = new Entities.User
         {
@@ -19,6 +20,8 @@ public class UserRepository(DataContext context) : IUserRepository
         
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
+
+        return user;
     }
 
     public async Task<bool> EmailExists(string email) 
