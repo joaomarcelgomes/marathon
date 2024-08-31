@@ -1,16 +1,19 @@
 import { Link, useLocation } from 'react-router-dom'
 import Icon, { type IconProps } from '@/components/Icon'
+import useAuth from '@/hooks/use-auth'
+import Avatar from '../Avatar'
 
 interface ItemProps {
   href: string
-  icon: React.ReactElement<IconProps>
+  selected?: boolean
+  icon: React.ComponentType<IconProps>
 }
 
-const Item: React.FC<ItemProps> = ({ href, icon }) => {
+const Item: React.FC<ItemProps> = ({ href, selected, icon: Icon }) => {
   return (
     <li className="nav-item">
       <Link to={href} className="nav-link px-2 py-3">
-        {icon}
+        <Icon size={24} fill={selected ? '#04a33a' : '#fff'} />
       </Link>
     </li>
   )
@@ -18,37 +21,38 @@ const Item: React.FC<ItemProps> = ({ href, icon }) => {
 
 export const Sidebar: React.FC = () => {
   const { pathname } = useLocation()
-
-  const selected = (name: string) => (pathname == name ? '#f00' : '#fff')
+  const { user } = useAuth()
 
   return (
-    <aside className="col-sm-auto background-1 sticky-top">
-      <div className="d-flex flex-sm-column flex-row gap-sm-5 align-items-center sticky-top h-100">
-        <Link to="/" className="d-block mt-sm-3 p-3">
-          <img
-            src="/marathon-logo.svg"
-            alt="Logo Marathon"
-            width={32}
-            height={32}
-          />
+    <aside className="sm-sticky-top sm-vh-100 col-sm-auto background-1">
+      <div className="d-flex flex-sm-column flex-sm-row flex-row-reverse gap-sm-5 align-items-center sticky-top h-100">
+        <Link to="/perfil" className="d-block mt-sm-3 p-3">
+          <Avatar url={user.avatar} width={38} height={38} />
         </Link>
-        <nav className="d-flex flex-sm-column justify-content-sm-between justify-content-end w-100 h-100">
+        <nav className="d-flex flex-sm-column justify-content-between w-100 h-100">
           <ul className="nav nav-pills nav-flush flex-sm-column flex-row h-100 px-3 align-items-center">
             <Item
               href="/competicoes"
-              icon={<Icon.Groups size={24} fill={selected('/competicoes')} />}
+              icon={Icon.Groups}
+              selected={pathname === '/competicoes'}
             />
             <Item
               href="/times"
-              icon={<Icon.Swords size={24} fill={selected('/times')} />}
+              icon={Icon.Swords}
+              selected={pathname === '/times'}
             />
           </ul>
           <ul className="nav nav-pills nav-flush flex-sm-column justify-content-sm-end flex-row h-100 px-3 align-items-center">
             <Item
               href="/perfil"
-              icon={<Icon.Settings size={24} fill={selected('/perfil')} />}
+              icon={Icon.Settings}
+              selected={pathname === '/perfil'}
             />
-            <Item href="/logout" icon={<Icon.Logout size={24} />} />
+            <Item
+              href="/logout"
+              icon={Icon.Logout}
+              selected={pathname === '/logout'}
+            />
           </ul>
         </nav>
       </div>

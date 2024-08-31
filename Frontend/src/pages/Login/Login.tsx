@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import useAuth from '@/hooks/use-auth'
-import InputIcon from '@/components/InputIcon'
 import Icon from '@/components/Icon'
+import Input from '@/components/Input'
+import useAuth from '@/hooks/use-auth'
+import schema from '@/lib/zod/login-schema'
 import zod from 'zod'
-
-const schema = zod.object({
-  email: zod.string().email('E-mail inválido.'),
-  password: zod.string().min(8, 'Usuário inválido.'),
-})
 
 export function Login() {
   const { signin } = useAuth()
@@ -20,10 +16,8 @@ export function Login() {
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const form = { email, password }
-
     try {
-      schema.parse(form)
+      schema.parse({ email, password })
       await signin(email, password)
       navigate('/')
     } catch (error) {
@@ -36,8 +30,8 @@ export function Login() {
   }
 
   return (
-    <main className="container">
-      <div className="wrapper">
+    <main className="container min-vh-100">
+      <div className="wrapper text-center">
         <Link to="/">
           <img
             src="/marathon-logo.svg"
@@ -47,20 +41,24 @@ export function Login() {
             height={75}
           />
         </Link>
-        <form onSubmit={login} className="d-flex gap-4 flex-column mb-3">
-          <InputIcon
+        <form
+          onSubmit={login}
+          className="d-flex gap-4 flex-column mb-3"
+          spellCheck="false"
+        >
+          <Input
             type="email"
+            value={email}
             placeholder="Informe seu e-mail"
             onChange={(e) => setEmail(e.target.value)}
-            value={email}
             icon={<Icon.Email />}
             required
           />
-          <InputIcon
+          <Input
             type="password"
+            value={password}
             placeholder="Informe sua senha"
             onChange={(e) => setPassword(e.target.value)}
-            value={password}
             icon={<Icon.Lock />}
             required
           />
@@ -69,10 +67,14 @@ export function Login() {
               {error}
             </div>
           )}
-          <input className="btn btn-primary" type="submit" value="Entrar" />
+          <input
+            type="submit"
+            className="btn btn-primary mt-2"
+            value="Entrar"
+          />
           <p>
             Ainda não tem uma conta?{' '}
-            <Link to="/cadastro" className="color-primary">
+            <Link to="/cadastro" className="primary">
               Cadastre-se
             </Link>
           </p>

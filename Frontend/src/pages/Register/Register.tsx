@@ -1,21 +1,10 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import useAuth from '@/hooks/use-auth'
-import InputIcon from '@/components/InputIcon'
 import Icon from '@/components/Icon'
+import Input from '@/components/Input'
+import useAuth from '@/hooks/use-auth'
+import schema from '@/lib/zod/register-schema'
 import zod from 'zod'
-
-const schema = zod
-  .object({
-    name: zod.string(),
-    email: zod.string().email('E-mail inválido.'),
-    password: zod.string().min(8, 'Senha deve ter no mínimo 8 caracteres.'),
-    confirmPassword: zod.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Confirmar senha deve ser igual a senha.',
-    path: ['confirmPassword'],
-  })
 
 export function Register() {
   const { register } = useAuth()
@@ -29,15 +18,8 @@ export function Register() {
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const form = {
-      name,
-      email,
-      password,
-      confirmPassword,
-    }
-
     try {
-      schema.parse(form)
+      schema.parse({ name, email, password, confirmPassword })
       await register(name, email, password)
       navigate('/')
     } catch (error) {
@@ -50,8 +32,8 @@ export function Register() {
   }
 
   return (
-    <main className="container">
-      <div className="wrapper">
+    <main className="container min-vh-100">
+      <div className="wrapper text-center">
         <Link to="/">
           <img
             src="/marathon-logo.svg"
@@ -61,36 +43,40 @@ export function Register() {
             height={75}
           />
         </Link>
-        <form onSubmit={login} className="d-flex gap-4 flex-column mb-3">
-          <InputIcon
+        <form
+          onSubmit={login}
+          className="d-flex gap-4 flex-column mb-3"
+          spellCheck="false"
+        >
+          <Input
             type="text"
+            value={name}
             placeholder="Nome completo"
             onChange={(e) => setName(e.target.value)}
-            value={name}
             icon={<Icon.Person />}
             required
           />
-          <InputIcon
+          <Input
             type="email"
+            value={email}
             placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
-            value={email}
             icon={<Icon.Email />}
             required
           />
-          <InputIcon
+          <Input
             type="password"
+            value={password}
             placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
-            value={password}
             icon={<Icon.Lock />}
             required
           />
-          <InputIcon
+          <Input
             type="password"
+            value={confirmPassword}
             placeholder="Confirmar senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword}
             icon={<Icon.Lock />}
             required
           />
@@ -99,10 +85,14 @@ export function Register() {
               {error}
             </div>
           )}
-          <input className="btn btn-primary" type="submit" value="Cadastrar" />
+          <input
+            type="submit"
+            className="btn btn-primary mt-2"
+            value="Cadastrar"
+          />
           <p>
             Já possui uma conta?{' '}
-            <Link to="/login" className="color-primary">
+            <Link to="/login" className="primary">
               Entrar
             </Link>
           </p>

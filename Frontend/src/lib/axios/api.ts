@@ -1,1 +1,1 @@
-export * as default from './repositories'
+export * as default from './services'

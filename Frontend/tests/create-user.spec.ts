@@ -1,14 +1,10 @@
 import { test, expect } from 'vitest'
-import user from '../src/mocks/user'
 import api from '../src/lib/axios/config'
+import user from './mocks/user'
 
-test('Should return token JWT and user', async () => {
-  const data = {
-    ...user,
-    password: '12345678',
-  }
-
-  const response = await api.post('/register', data)
+test('Should create a user', async () => {
+  const data = { ...user, password: '12345678' }
+  const response = await api.post('/user', data)
   expect(response.status).toBe(200)
   expect(response.data.success).toEqual(true)
   expect(response.data.message).toBeTypeOf('string')

@@ -1,10 +1,12 @@
 import axios from 'axios'
 import type { AxiosRequestConfig } from 'axios'
-import * as cookies from '@/utils/cookies'
 import MockAdapter from 'axios-mock-adapter'
-import login from '@/mocks/login'
-import register from '@/mocks/register'
-import user from '@/mocks/current-user'
+import * as cookies from '@/utils/cookies'
+import login from '@/tests/mocks/login'
+import createUser from '@/tests/mocks/create-user'
+import updateUser from '@/tests/mocks/update-user'
+import removeUser from '@/tests/mocks/remove-user'
+import user from '@/tests/mocks/current-user'
 
 const config = axios.create({
   baseURL: 'http://localhost:5000',
@@ -31,8 +33,10 @@ const auth = (config: AxiosRequestConfig, response: unknown) => {
   }
 }
 
-mock.onPost('/login').reply(200, login)
-mock.onPost('/register').reply(200, register)
+mock.onPost('/user/login').reply(200, login)
+mock.onPost('/user').reply(200, createUser)
 mock.onGet('/user').reply((config) => auth(config, user))
+mock.onPut('/user').reply(200, updateUser)
+mock.onDelete('/user/1').reply(200, removeUser)
 
 export default config
