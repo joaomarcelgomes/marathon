@@ -64,4 +64,42 @@ public class UserController : ControllerBase
             return BadRequest(new { success = false, message = "Não foi possível buscar o usuário" });
         }
     }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete([FromServices] IDeleteUserService userService, int id)
+    {
+        try
+        {
+            await userService.Delete(id);
+            
+            return Ok(new { success = true, message = "Usuário deletado com sucesso" });
+        }
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new { success = false, message = "Não foi possível deletar o usuário" });
+        }
+    }
+    
+    [HttpPut]
+    public async Task<ActionResult> Update([FromServices] IUpdateUserService userService, [FromBody] UserUpdateRequest request)
+    {
+        try
+        {
+            await userService.Update(request.Id, request.Name, request.Avatar, request.Email, request.Password);
+            
+            return Ok(new { success = true, message = "Usuário atualizado com sucesso" });
+        }
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new { success = false, message = "Não foi possível atualizar o usuário" });
+        }
+    }
 }

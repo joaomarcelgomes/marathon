@@ -39,6 +39,8 @@ builder.Services.AddScoped<ICreateTeamService, CreateTeamService>();
 builder.Services.AddScoped<IEditTeamService, EditTeamService>(); 
 builder.Services.AddScoped<IRemoveTeamService, RemoveTeamService>();
 builder.Services.AddScoped<IReturnUserService, ReturnUserService>();
+builder.Services.AddScoped<IDeleteUserService, DeleteUserService>();
+builder.Services.AddScoped<IUpdateUserService, UpdateUserService>();
 
 var app = builder.Build();
 
