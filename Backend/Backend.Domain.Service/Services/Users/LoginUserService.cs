@@ -7,7 +7,7 @@ public class LoginUserService(IUserRepository repository) : ILoginUserService
 {
     public async Task<bool> Login(string email, string password)
     {
-        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+        if (string.IsNullOrWhiteSpace(email) || !email.Contains('@'))
             throw new ArgumentException("O e-mail informado é inválido");
         
         if(string.IsNullOrWhiteSpace(password) || password.Length < 8)

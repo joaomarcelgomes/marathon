@@ -38,14 +38,12 @@ builder.Services.AddScoped<ISearchTeamService, SearchTeamService>();
 builder.Services.AddScoped<ICreateTeamService, CreateTeamService>();
 builder.Services.AddScoped<IEditTeamService, EditTeamService>(); 
 builder.Services.AddScoped<IRemoveTeamService, RemoveTeamService>();
+builder.Services.AddScoped<IReturnUserService, ReturnUserService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors(x => x
     .AllowAnyOrigin()

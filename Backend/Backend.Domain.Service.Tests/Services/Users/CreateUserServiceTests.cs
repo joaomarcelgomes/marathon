@@ -2,7 +2,7 @@
 using Backend.Domain.Service.Services.Users;
 using Moq;
 
-namespace Backend.Domain.Service.Tests.Services;
+namespace Backend.Domain.Service.Tests.Services.Users;
 
 public class CreateUserServiceTests
 {

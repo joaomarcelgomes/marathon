@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Backend.Infra.EntityLibrary\Backend.Infra.EntityLibrary.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\" />
+    </ItemGroup>
+
 </Project>

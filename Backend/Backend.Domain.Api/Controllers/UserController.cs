@@ -23,7 +23,7 @@ public class UserController : ControllerBase
         }
         catch (Exception)
         {
-            return BadRequest();
+            return BadRequest(new { success = false, message = "Não foi possível criar o usuário" });
         }
     }
     
@@ -42,7 +42,26 @@ public class UserController : ControllerBase
         }
         catch (Exception)
         {
-            return BadRequest();
+            return BadRequest(new { success = false, message = "Não foi possível fazer o login" });
+        }
+    }
+    
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult> ReturnUser([FromServices] IReturnUserService userService, int id)
+    {
+        try
+        {
+            var user = await userService.ReturnUser(id);
+
+            return Ok(new { success = true, data = user });
+        }
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new { success = false, message = "Não foi possível buscar o usuário" });
         }
     }
 }

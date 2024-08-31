@@ -26,4 +26,7 @@ public class UserRepository(DataContext context) : IUserRepository
 
     public async Task<bool> Login(string email, string password)
         => await context.Users.AnyAsync(x => x.Email == email && x.Password == password);
+
+    public Task<Entities.User> GetUser(int id)
+        => context.Users.FirstOrDefaultAsync(x => x.Id == id);
 }
