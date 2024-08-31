@@ -2,5 +2,5 @@
 
 public interface ICreateUserService
 {
-    public Task Create(string name, string email, string password);
+    public Task Create(string name, string avatar, string email, string password);
 }

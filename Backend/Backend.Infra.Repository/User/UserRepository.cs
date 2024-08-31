@@ -7,11 +7,12 @@ namespace Backend.Infra.Repository.User;
 
 public class UserRepository(DataContext context) : IUserRepository
 {
-    public async Task Create(string name, string email, string password)
+    public async Task Create(string name, string avatar, string email, string password)
     {
-        var user = new Entities.User()
+        var user = new Entities.User
         {
             Name = name,
+            Avatar = avatar,
             Email = email,
             Password = password
         };

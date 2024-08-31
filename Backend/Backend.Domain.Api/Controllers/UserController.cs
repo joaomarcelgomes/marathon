@@ -13,7 +13,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            await userService.Create(request.Name, request.Email, request.Password);
+            await userService.Create(request.Name, request.Avatar, request.Email, request.Password);
             
             return Ok(new { success = true, message = "Usuário criado com sucesso" });
         }
