@@ -1,11 +1,14 @@
-﻿using Backend.Domain.Service.Repositories;
-using Backend.Domain.Service.Services;
+﻿using AutoFixture;
+using Backend.Domain.Service.Repositories;
+using Backend.Domain.Service.Services.Users;
+using Backend.Infra.EntityLibrary.Entities;
 using Moq;
 
-namespace Backend.Domain.Service.Tests.Services;
+namespace Backend.Domain.Service.Tests.Services.Users;
 
 public class LoginUserServiceTests
 {
+    private readonly Fixture _fixture = new();
     private readonly Mock<IUserRepository> _repository = new();
     
     [Theory]
@@ -39,26 +42,34 @@ public class LoginUserServiceTests
     public async Task Login_WithInvalidEmailOrPassword_ShouldThrowInvalidOperationException(string email, string password)
     {
         _repository.Setup(x => x.EmailExists(It.IsAny<string>())).ReturnsAsync(true);
-        _repository.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
+        _repository.Setup(x => x.GetUser(It.IsAny<string>(), It.IsAny<string>()));
         
         var service = new LoginUserService(_repository.Object);
-
-        var result = await service.Login(email, password);
         
-        Assert.False(result);
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () => 
+            await service.Login(email, password));
+
+        Assert.Equal("Usuário não encontrado", exception.Message);
     }
     
     [Theory]
     [InlineData("user@domain.com", "@Admin1234")]
     public async Task Login_WithValidEmailAndPassword_ShouldReturnUser(string email, string password)
     {
+        var user = _fixture.Create<User>();
+        
         _repository.Setup(x => x.EmailExists(It.IsAny<string>())).ReturnsAsync(true);
-        _repository.Setup(x => x.Login(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(true);
+        _repository.Setup(x => x.GetUser(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(user);
         
         var service = new LoginUserService(_repository.Object);
         
-        var user = await service.Login(email, password);
+        var (model, token) = await service.Login(email, password);
         
-        Assert.True(user);
+        Assert.Equal(user.Id, model.Id);
+        Assert.Equal(user.Name, model.Name);
+        Assert.Equal(user.Avatar, model.Avatar);
+        Assert.Equal(user.Email, model.Email);
+        
+        Assert.NotEmpty(token);
     }
 }

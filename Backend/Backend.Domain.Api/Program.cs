@@ -1,6 +1,9 @@
+using Backend.Domain.Api.Middlewares;
 using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
 using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Users;
+using Backend.Domain.Service.Services.Users.Interfaces;
 using Backend.Infra.EntityLibrary.Data;
 using Backend.Infra.Repository.Team;
 using Backend.Infra.Repository.User;
@@ -23,7 +26,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddResponseCompression(options =>
 {
     options.Providers.Add<GzipCompressionProvider>();
-    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/json" });
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["application/json"]);
 });
 
 builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
@@ -36,14 +39,16 @@ builder.Services.AddScoped<ISearchTeamService, SearchTeamService>();
 builder.Services.AddScoped<ICreateTeamService, CreateTeamService>();
 builder.Services.AddScoped<IEditTeamService, EditTeamService>(); 
 builder.Services.AddScoped<IRemoveTeamService, RemoveTeamService>();
+builder.Services.AddScoped<IReturnUserService, ReturnUserService>();
+builder.Services.AddScoped<IDeleteUserService, DeleteUserService>();
+builder.Services.AddScoped<IUpdateUserService, UpdateUserService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseMiddleware<TokenValidationMiddleware>();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors(x => x
     .AllowAnyOrigin()
@@ -54,6 +59,6 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
-app.UseEndpoints(endpoints => endpoints.MapControllers());
+app.MapControllers();
 
 app.Run();
