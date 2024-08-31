@@ -1,7 +1,7 @@
 ﻿using Backend.Domain.Service.Repositories;
-using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Users.Interfaces;
 
-namespace Backend.Domain.Service.Services;
+namespace Backend.Domain.Service.Services.Users;
 
 public class CreateUserService(IUserRepository repository) : ICreateUserService
 {
@@ -10,7 +10,7 @@ public class CreateUserService(IUserRepository repository) : ICreateUserService
         if (string.IsNullOrWhiteSpace(name) || name.Length < 4)
             throw new ArgumentException("O nome do usuário precisa ter pelo menos 4 caracteres");
 
-        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+        if (string.IsNullOrWhiteSpace(email) || !email.Contains('@'))
             throw new ArgumentException("O e-mail informado é inválido");
         
         if (string.IsNullOrWhiteSpace(password) || password.Length < 8)

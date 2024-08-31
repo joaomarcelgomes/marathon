@@ -1,11 +1,10 @@
 ﻿using Backend.Domain.Service.Repositories;
-using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Users.Interfaces;
 
-namespace Backend.Domain.Service.Services;
+namespace Backend.Domain.Service.Services.Users;
 
 public class LoginUserService(IUserRepository repository) : ILoginUserService
 {
-    
     public async Task<bool> Login(string email, string password)
     {
         if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))

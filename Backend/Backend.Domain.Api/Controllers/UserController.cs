@@ -1,6 +1,5 @@
-﻿using Backend.Domain.Api.Models;
-using Backend.Domain.Api.Models.Requests;
-using Backend.Domain.Service.Services.Interfaces;
+﻿using Backend.Domain.Api.Models.Requests;
+using Backend.Domain.Service.Services.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Domain.Api.Controllers;
@@ -18,7 +17,7 @@ public class UserController : ControllerBase
             
             return Ok(new { success = true, message = "Usuário criado com sucesso" });
         }
-        catch (Exception ex) when (ex is ArgumentException || ex is InvalidOperationException)
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
             return BadRequest(new { success = false, message = ex.Message });
         }
@@ -37,7 +36,7 @@ public class UserController : ControllerBase
 
             return Ok(user ? new { success = true, message = "Usuário logado com sucesso" } : new { success = false, message = "Usuário ou senha inválidos" });
         }
-        catch (Exception ex) when (ex is ArgumentException || ex is InvalidOperationException)
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
             return BadRequest(new { success = false, message = ex.Message });
         }

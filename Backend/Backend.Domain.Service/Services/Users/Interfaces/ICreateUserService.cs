@@ -1,4 +1,4 @@
-﻿namespace Backend.Domain.Service.Services.Interfaces;
+﻿namespace Backend.Domain.Service.Services.Users.Interfaces;
 
 public interface ICreateUserService
 {

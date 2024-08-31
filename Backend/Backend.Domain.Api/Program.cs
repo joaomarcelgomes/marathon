@@ -1,6 +1,8 @@
 using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
 using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Users;
+using Backend.Domain.Service.Services.Users.Interfaces;
 using Backend.Infra.EntityLibrary.Data;
 using Backend.Infra.Repository.Team;
 using Backend.Infra.Repository.User;
@@ -23,7 +25,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddResponseCompression(options =>
 {
     options.Providers.Add<GzipCompressionProvider>();
-    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/json" });
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["application/json"]);
 });
 
 builder.Services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
@@ -54,6 +56,6 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
-app.UseEndpoints(endpoints => endpoints.MapControllers());
+app.MapControllers();
 
 app.Run();
