@@ -26,8 +26,8 @@ public class TokenService
             issuer: "https://marathon.com",
             audience: "marathon-api",
             claims: claims,
-            notBefore: DateTime.UtcNow,
-            expires: DateTime.UtcNow.AddHours(8),
+            notBefore: DateTime.Now,
+            expires: DateTime.Now.AddSeconds(30),
             signingCredentials: credentials
         );
         
@@ -35,7 +35,7 @@ public class TokenService
         return tokenHandler.WriteToken(token);
     }
     
-    public string Validate(string token)
+    public bool Validate(string token)
     {
         var tokenValidationParameters = new TokenValidationParameters
         {
@@ -53,10 +53,7 @@ public class TokenService
         var claims = tokenHandler.ValidateToken(token, tokenValidationParameters, out _);
         
         var userId = claims.FindFirst(ClaimTypes.NameIdentifier);
-        
-        if(userId == null)
-            throw new SecurityTokenException("Invalid token");
-            
-        return userId.Value;
+
+        return userId != null;
     }
 }

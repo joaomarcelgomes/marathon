@@ -1,3 +1,4 @@
+using Backend.Domain.Api.Middlewares;
 using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
 using Backend.Domain.Service.Services.Interfaces;
@@ -43,6 +44,8 @@ builder.Services.AddScoped<IDeleteUserService, DeleteUserService>();
 builder.Services.AddScoped<IUpdateUserService, UpdateUserService>();
 
 var app = builder.Build();
+
+app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();

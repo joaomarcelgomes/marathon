@@ -8,7 +8,7 @@ namespace Backend.Domain.Api.Controllers;
 [Route("user")]
 public class UserController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<ActionResult> Create([FromServices] ICreateUserService userService, [FromBody] UserCreateRequest request)
     {
         try
@@ -47,7 +47,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet("{id:int}")]
-    public async Task<ActionResult> ReturnUser([FromServices] IReturnUserService userService, int id)
+    public async Task<ActionResult> ReturnUser([FromServices] IReturnUserService userService, [FromHeader(Name = "Authorization")] string authorization, int id)
     {
         try
         {
@@ -66,7 +66,7 @@ public class UserController : ControllerBase
     }
     
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult> Delete([FromServices] IDeleteUserService userService, int id)
+    public async Task<ActionResult> Delete([FromServices] IDeleteUserService userService, [FromHeader(Name = "Authorization")] string authorization, int id)
     {
         try
         {
@@ -85,7 +85,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPut]
-    public async Task<ActionResult> Update([FromServices] IUpdateUserService userService, [FromBody] UserUpdateRequest request)
+    public async Task<ActionResult> Update([FromServices] IUpdateUserService userService, [FromHeader(Name = "Authorization")] string authorization, [FromBody] UserUpdateRequest request)
     {
         try
         {

@@ -9,7 +9,7 @@ namespace Backend.Domain.Api.Controllers;
 public class TeamController : ControllerBase
 {
     [HttpGet("all")]
-    public async Task<ActionResult> All([FromServices] ISearchTeamService teamService)
+    public async Task<ActionResult> All([FromServices] ISearchTeamService teamService, [FromHeader(Name = "Authorization")] string authorization)
     {
         try
         {
@@ -27,7 +27,7 @@ public class TeamController : ControllerBase
     }
     
     [HttpGet("search")]
-    public async Task<ActionResult> Search([FromServices] ISearchTeamService teamService, [FromQuery] string q)
+    public async Task<ActionResult> Search([FromServices] ISearchTeamService teamService, [FromHeader(Name = "Authorization")] string authorization, [FromQuery] string q)
     {
         try
         {
@@ -45,7 +45,7 @@ public class TeamController : ControllerBase
     }
     
     [HttpGet("find/:id")]
-    public async Task<ActionResult> Find([FromServices] ISearchTeamService teamService, int id)
+    public async Task<ActionResult> Find([FromServices] ISearchTeamService teamService, [FromHeader(Name = "Authorization")] string authorization, int id)
     {
         try
         {
@@ -60,7 +60,7 @@ public class TeamController : ControllerBase
     }
     
     [HttpPost("create")]
-    public async Task<ActionResult> Create([FromServices] ICreateTeamService teamService, [FromBody] TeamCreateRequest request)
+    public async Task<ActionResult> Create([FromServices] ICreateTeamService teamService, [FromHeader(Name = "Authorization")] string authorization, [FromBody] TeamCreateRequest request)
     {
         try
         {
@@ -75,7 +75,7 @@ public class TeamController : ControllerBase
     }
     
     [HttpPut("edit/:id")]
-    public async Task<ActionResult> Edit([FromServices] IEditTeamService teamService, int id, [FromBody] TeamCreateRequest request)
+    public async Task<ActionResult> Edit([FromServices] IEditTeamService teamService, [FromHeader(Name = "Authorization")] string authorization, int id, [FromBody] TeamCreateRequest request)
     {
         try
         {
@@ -90,7 +90,7 @@ public class TeamController : ControllerBase
     }
     
     [HttpDelete("remove/:id")]
-    public async Task<ActionResult> Remove([FromServices] IRemoveTeamService teamService, int id)
+    public async Task<ActionResult> Remove([FromServices] IRemoveTeamService teamService, [FromHeader(Name = "Authorization")] string authorization, int id)
     {
         try
         {
