@@ -1,6 +1,8 @@
-﻿namespace Backend.Domain.Service.Services.Users.Interfaces;
+﻿using Backend.Domain.Service.Models.Responses;
+
+namespace Backend.Domain.Service.Services.Users.Interfaces;
 
 public interface ILoginUserService
 {
-    public Task<bool> Login(string email, string password);
+    public Task<(ReturnUserModel, string token)> Login(string email, string password);
 }

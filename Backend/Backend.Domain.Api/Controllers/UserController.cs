@@ -32,9 +32,9 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = await userService.Login(request.Email, request.Password);
-
-            return Ok(user ? new { success = true, message = "Usuário logado com sucesso" } : new { success = false, message = "Usuário ou senha inválidos" });
+            var (user, token) = await userService.Login(request.Email, request.Password);
+            
+            return Ok(new { success = true, message = "Usuário logado com sucesso", data = new {user, token} });
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
