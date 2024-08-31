@@ -15,7 +15,12 @@ export async function me() {
   return await config.get<Response<User>>('/user')
 }
 
-export async function update(name: string, email: string, password: string) {
+export async function update(
+  id: number,
+  name: string,
+  email: string,
+  password: string
+) {
   const data = { name, email } as {
     name: string
     email: string
@@ -26,7 +31,7 @@ export async function update(name: string, email: string, password: string) {
     data.password = password
   }
 
-  return await config.put<Response<void>>('/user', data)
+  return await config.put<Response<void>>('/user/' + id, data)
 }
 
 export async function remove(id: number) {

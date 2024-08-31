@@ -36,7 +36,7 @@ const auth = (config: AxiosRequestConfig, response: unknown) => {
 mock.onPost('/user/login').reply(200, login)
 mock.onPost('/user').reply(200, createUser)
 mock.onGet('/user').reply((config) => auth(config, user))
-mock.onPut('/user').reply(200, updateUser)
+mock.onPut('/user/1').reply(200, updateUser)
 mock.onDelete('/user/1').reply(200, removeUser)
 
 export default config

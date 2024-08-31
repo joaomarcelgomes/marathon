@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<{
   }
 
   const updateUser = async (name: string, email: string, password: string) => {
-    await api.user.update(name, email, password)
+    await api.user.update(user.id, name, email, password)
     setUser((data) => ({ ...data, name, email }))
   }
 
