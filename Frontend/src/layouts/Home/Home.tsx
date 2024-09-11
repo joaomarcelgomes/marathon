@@ -10,7 +10,7 @@ export function HomeLayout({ children }: HomeLayoutProps) {
     <div className="container-fluid">
       <div className="row">
         <Sidebar />
-        <main className="col-sm p-3 min-vh-100">{children}</main>
+        <main className="col-sm min-vh-100 overflow-x">{children}</main>
       </div>
     </div>
   )

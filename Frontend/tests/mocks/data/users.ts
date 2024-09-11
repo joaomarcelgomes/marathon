@@ -29,4 +29,34 @@ export default [
     email: 'lordvoldemort@mock.com',
     avatar: 'https://i.pravatar.cc/300',
   },
+  {
+    id: 6,
+    name: 'Jon Snow',
+    email: 'jonsnow@mock.com',
+    avatar: 'https://i.pravatar.cc/300',
+  },
+  {
+    id: 7,
+    name: 'Arya Stark',
+    email: 'aryastark@mock.com',
+    avatar: 'https://i.pravatar.cc/300',
+  },
+  {
+    id: 8,
+    name: 'Daenerys Targaryen',
+    email: 'daenerystargaryen@mock.com',
+    avatar: 'https://i.pravatar.cc/300',
+  },
+  {
+    id: 9,
+    name: 'Tyrion Lannister',
+    email: 'tyrionlannister@mock.com',
+    avatar: 'https://i.pravatar.cc/300',
+  },
+  {
+    id: 10,
+    name: 'Jaime Lannister',
+    email: 'jaimelannister@mock.com',
+    avatar: 'https://i.pravatar.cc/300',
+  },
 ]

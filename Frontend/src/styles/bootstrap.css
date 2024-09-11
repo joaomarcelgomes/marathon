@@ -1,19 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
-
-:root {
-  --black: #000;
-  --white: #FFF;
-  --primary: #04A33A;
-  --primary-dark: #03582F;
-  --secondary: #4B4B85;
-  --default: #2958FF;
-  --shape-1: #1F1F1F;
-  --shape-2: #292929;
-  --shape-3: #363636;
-  --shape-4: #373737;
-  --background: #252525;
-  --danger: #f00;
-}
+@import 'app.css';
 
 body {
   min-width: 420px;
@@ -25,33 +11,41 @@ a {
   text-decoration: none;
 }
 
-.primary {
-  color: var(--primary);
-}
-.secondary {
-  color: var(--secondary);
-}
-.danger {
-  color: var(--danger);
+.container {
+  display: flex;
+  min-width: 420px;
+  max-width: 1280px;
+  padding: 0 1.5rem;
+  align-items: center;
 }
 
-.background-none {
-  background-color: transparent;
+.wrapper {
+  padding: 2rem;
+  min-width: 320px;
+  margin-inline: auto;
 }
-.background-custom {
-  background-color: var(--background);
+
+.shadow {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25) !important;
 }
-.background-1 {
-  background-color: var(--shape-1);
+
+.form-group label {
+  font-size: 1.25rem;
+  margin-bottom: .25rem;
 }
-.background-2 {
-  background-color: var(--shape-2);
+
+.custom-input {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: transparent;
+  border-radius: .5rem;
 }
-.background-3 {
+.custom-input:focus-within {
+  outline-color: var(--primary);
+}
+.custom-input input:focus {
   background-color: var(--shape-3);
-}
-.background-4 {
-  background-color: var(--shape-4);
+  box-shadow: none !important;
 }
 
 .btn-primary {
@@ -67,31 +61,30 @@ a {
   background-color: var(--primary-dark);
 }
 
-.custom-input {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-color: transparent;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .25);
+.custom-table {
+  width: 100%;
+  padding: .5rem;
+  --table-radius: .5rem;
+  border-radius: var(--table-radius);
 }
-.custom-input:focus-within {
-  outline-color: var(--primary);
+.custom-table th {
+  text-align: center;
 }
-.custom-input input {
-  border-radius: inherit !important;
+.custom-table th:first-child,
+.custom-table td:first-child:last-of-type {
+  border-top-left-radius: var(--table-radius);
 }
-.custom-input input:focus {
-  background-color: var(--shape-3);
-  box-shadow: none !important;
+.custom-table th:last-child,
+.custom-table td:last-child:last-of-type {
+  border-top-right-radius: var(--table-radius);
 }
-
-.form-group label {
-  font-size: 1.25rem;
-  margin-bottom: .25rem;
+.custom-table thead th,
+.custom-table tbody td {
+  padding: .5rem 1rem;
 }
-
-.text-underline {
-  text-decoration: underline;
+.custom-table thead {
+  padding: 2rem;
+  background-color: var(--shape-5);
 }
 
 /* X-Small devices (portrait phones, less than 576px) */

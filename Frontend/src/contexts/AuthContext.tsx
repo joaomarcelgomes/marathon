@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import retrieveUser from '@/utils/retrieve-user'
 import * as cookies from '@/utils/cookies'
 import api from '@/lib/axios/api'
 import type { User } from 'auth'
@@ -24,19 +25,15 @@ export const AuthProvider: React.FC<{
 
   const authenticated = !!user
 
-  const retrieveUser = async () => {
-    try {
-      const response = await api.user.me()
-      setUser(response.data.data as User)
-    } catch {
-      setUser(null)
-    } finally {
-      setLoading(false)
-    }
+  const setCurrentUser = async () => {
+    setLoading(true)
+    const currentUser = await retrieveUser()
+    setUser(currentUser)
+    setLoading(false)
   }
 
   React.useEffect(() => {
-    retrieveUser()
+    setCurrentUser()
   }, [])
 
   const register = async (name: string, email: string, password: string) => {

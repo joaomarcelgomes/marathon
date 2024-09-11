@@ -1,13 +1,91 @@
-.container {
-  display: flex;
-  min-width: 420px;
-  max-width: 1280px;
-  padding: 0 1.5rem;
-  align-items: center;
+:root {
+  --black: #000;
+  --white: #FFF;
+  --primary: #04A33A;
+  --primary-dark: #03582F;
+  --secondary: #4B4B85;
+  --default: #2958FF;
+  --shape-1: #1F1F1F;
+  --shape-2: #292929;
+  --shape-3: #363636;
+  --shape-4: #373737;
+  --shape-5: #1D1D1D;
+  --shape-6: #202020;
+  --background: #252525;
+  --danger: #f00;
 }
 
-.wrapper {
-  padding: 2rem;
-  min-width: 320px;
-  margin-inline: auto;
+.primary {
+  color: var(--primary);
+}
+.secondary {
+  color: var(--secondary);
+}
+.danger {
+  color: var(--danger);
+}
+
+.bg-none {
+  background-color: transparent;
+}
+.bg-custom {
+  background-color: var(--background);
+}
+.bg-1 {
+  background-color: var(--shape-1);
+}
+.bg-2 {
+  background-color: var(--shape-2);
+}
+.bg-3 {
+  background-color: var(--shape-3);
+}
+.bg-4 {
+  background-color: var(--shape-4);
+}
+.bg-5 {
+  background-color: var(--shape-5);
+}
+.bg-6 {
+  background-color: var(--shape-6);
+}
+
+.max-w-sm {
+  max-width: 992px;
+}
+.max-w-md {
+  max-width: 1280px;
+}
+.min-w-lg {
+  min-width: 1400px;
+}
+
+.min-w-sm {
+  min-width: 992px;
+}
+.min-w-md {
+  min-width: 1280px;
+}
+.min-w-lg {
+  min-width: 1400px;
+}
+
+.min-h-100 {
+  min-height: 100%;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.overflow-x {
+  overflow: auto clip;
 }

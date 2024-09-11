@@ -43,7 +43,7 @@ export function Profile() {
 
   return (
     <HomeLayout>
-      <section className="container h-100">
+      <section className="container h-100 mt-3">
         <div className="wrapper">
           <div className="d-flex flex-column align-items-center gap-3 mb-2">
             <Avatar url={user.avatar} width={120} height={120} />

@@ -1,5 +1,5 @@
 import config from '@/lib/axios/config'
-import type { Session, User, Response } from 'auth'
+import type { Response, Session, User } from 'auth'
 
 export async function login(email: string, password: string) {
   const data = { email, password }
@@ -11,8 +11,8 @@ export async function register(name: string, email: string, password: string) {
   return await config.post<Response<Session>>('/user', data)
 }
 
-export async function me() {
-  return await config.get<Response<User>>('/user')
+export async function me(id: number) {
+  return await config.get<Response<User>>('/user/' + id)
 }
 
 export async function update(

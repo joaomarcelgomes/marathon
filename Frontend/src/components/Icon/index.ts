@@ -5,6 +5,8 @@ import { Groups } from './Groups'
 import { Lock } from './Lock'
 import { Logout } from './Logout'
 import { Person } from './Person'
+import { Plus } from './Plus'
+import { Search } from './Search'
 import { Settings } from './Settings'
 import { Swords } from './Swords'
 
@@ -14,6 +16,8 @@ export default {
   Lock,
   Logout,
   Person,
+  Plus,
+  Search,
   Settings,
   Swords,
 }

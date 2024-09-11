@@ -24,18 +24,14 @@ export const Sidebar: React.FC = () => {
   const { user } = useAuth()
 
   return (
-    <aside className="sm-sticky-top sm-vh-100 col-sm-auto background-1">
+    <aside className="sm-sticky-top sm-vh-100 col-sm-auto bg-1">
       <div className="d-flex flex-sm-column flex-sm-row flex-row-reverse gap-sm-5 align-items-center sticky-top h-100">
         <Link to="/perfil" className="d-block mt-sm-3 p-3">
           <Avatar url={user.avatar} width={38} height={38} />
         </Link>
         <nav className="d-flex flex-sm-column justify-content-between w-100 h-100">
           <ul className="nav nav-pills nav-flush flex-sm-column flex-row h-100 px-3 align-items-center">
-            <Item
-              href="/competicoes"
-              icon={Icon.Groups}
-              selected={pathname === '/competicoes'}
-            />
+            <Item href="/" icon={Icon.Groups} selected={pathname === '/'} />
             <Item
               href="/times"
               icon={Icon.Swords}

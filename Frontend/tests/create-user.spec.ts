@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 import api from '../src/lib/axios/config'
-import user from './mocks/user'
+import user from './mocks/entities/user'
 
 test('Should create a user', async () => {
   const data = { ...user, password: '12345678' }
