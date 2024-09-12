@@ -13,6 +13,8 @@
   --shape-6: #202020;
   --background: #252525;
   --danger: #f00;
+
+  --rounded: .5rem;
 }
 
 .primary {
@@ -77,7 +79,6 @@
 .mr-3 {
   margin-right: 0.75rem;
 }
-
 .mr-4 {
   margin-right: 1rem;
 }
@@ -88,4 +89,8 @@
 
 .overflow-x {
   overflow: auto clip;
+}
+
+.rounded {
+  border-radius: var(--rounded) !important;
 }

@@ -10,12 +10,12 @@ export function Competitions() {
   const { user } = useAuth()
 
   const Competitions = () => {
-    if (!user.competitions)
+    if (user.competitions.length == 0)
       return (
         <tr>
           <td colSpan={7}>
-            <div className="text-center h-100">
-              <h3>Não há competições criadas</h3>
+            <div className="min-vh-100 d-flex flex-column text-center justify-content-center">
+              <h3>Nenhuma competição encontrada</h3>
             </div>
           </td>
         </tr>
@@ -51,7 +51,7 @@ export function Competitions() {
           </Button>
         </section>
         <section>
-          <div className="min-vh-100 m-4 mx-auto bg-6">
+          <div className="min-vh-100 m-4 mx-auto bg-6 rounded">
             <Table.Root>
               <Table.Head>
                 <tr>

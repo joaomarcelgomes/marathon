@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<{
   const signin = async (email: string, password: string) => {
     const response = await api.user.login(email, password)
     cookies.setSession(response.data.data.token)
-    setUser(response.data.data.user as User)
+    setCurrentUser()
   }
 
   const signout = () => {

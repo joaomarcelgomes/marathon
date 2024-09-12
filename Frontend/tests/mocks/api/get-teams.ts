@@ -4,7 +4,5 @@ import teams from '../data/teams'
 
 export default {
   ...response,
-  data: teams
-    .slice(0, 3)
-    .map((team) => ({ ...team, members: team.members.concat(user) })),
+  data: teams.map((team) => ({ ...team, members: team.members.concat(user) })),
 }

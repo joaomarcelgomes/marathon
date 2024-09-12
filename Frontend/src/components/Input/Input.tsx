@@ -10,7 +10,7 @@ export const Input: React.FC<InputProps> = (props) => {
   const { icon, className, ...rest } = props
 
   return (
-    <div className="custom-input bg-3 input-group shadow">
+    <div className="custom-input bg-3 input-group rounded shadow">
       {icon && <div className="input-group-text bg-none border-0">{icon}</div>}
       <input
         className={classnames(

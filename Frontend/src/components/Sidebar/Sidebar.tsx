@@ -31,12 +31,12 @@ export const Sidebar: React.FC = () => {
         </Link>
         <nav className="d-flex flex-sm-column justify-content-between w-100 h-100">
           <ul className="nav nav-pills nav-flush flex-sm-column flex-row h-100 px-3 align-items-center">
-            <Item href="/" icon={Icon.Groups} selected={pathname === '/'} />
             <Item
               href="/times"
-              icon={Icon.Swords}
+              icon={Icon.Groups}
               selected={pathname === '/times'}
             />
+            <Item href="/" icon={Icon.Swords} selected={pathname === '/'} />
           </ul>
           <ul className="nav nav-pills nav-flush flex-sm-column justify-content-sm-end flex-row h-100 px-3 align-items-center">
             <Item

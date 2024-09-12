@@ -38,7 +38,6 @@ a {
   outline-width: 2px;
   outline-style: solid;
   outline-color: transparent;
-  border-radius: .5rem;
 }
 .custom-input:focus-within {
   outline-color: var(--primary);
@@ -64,19 +63,18 @@ a {
 .custom-table {
   width: 100%;
   padding: .5rem;
-  --table-radius: .5rem;
-  border-radius: var(--table-radius);
+  border-radius: var(--rounded);
 }
 .custom-table th {
   text-align: center;
 }
 .custom-table th:first-child,
 .custom-table td:first-child:last-of-type {
-  border-top-left-radius: var(--table-radius);
+  border-top-left-radius: var(--rounded);
 }
 .custom-table th:last-child,
 .custom-table td:last-child:last-of-type {
-  border-top-right-radius: var(--table-radius);
+  border-top-right-radius: var(--rounded);
 }
 .custom-table thead th,
 .custom-table tbody td {
