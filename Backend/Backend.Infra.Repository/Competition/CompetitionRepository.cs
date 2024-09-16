@@ -1,0 +1,17 @@
+﻿using Backend.Domain.Service.Repositories;
+using Backend.Infra.EntityLibrary.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace Backend.Infra.Repository.Competition;
+
+public class CompetitionRepository(DataContext context) : ICompetitionRepository
+{
+    public Task<bool> UserExists(int userId)
+        => context.Users.AsNoTracking().AnyAsync(user => user.Id == userId);
+
+    public async Task Create(EntityLibrary.Entities.Competition competition)
+    {
+        await context.Competitions.AddAsync(competition);
+        await context.SaveChangesAsync();
+    }
+}

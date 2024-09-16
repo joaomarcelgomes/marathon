@@ -3,13 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infra.EntityLibrary.Data;
 
-public class DataContext : DbContext
+public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-    public DataContext(DbContextOptions<DataContext> options)
-        : base(options)
-    {
-    }
-    
-    public DbSet<User?> Users { get; set; }
+    public DbSet<User> Users { get; set; }
     public DbSet<Team> Teams { get; set; }
+    public DbSet<Competition> Competitions { get; set; }
 }

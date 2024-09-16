@@ -8,4 +8,6 @@ public class Team
     public string Members { get; set; }
     public string ShortName { get; set; }
     public DateTime CreatedAt { get; set; }
+    
+    public List<Competition> Competitions { get; set; }
 }
