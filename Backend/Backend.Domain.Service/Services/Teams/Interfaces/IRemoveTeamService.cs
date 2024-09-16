@@ -1,4 +1,4 @@
-﻿namespace Backend.Domain.Service.Services.Interfaces;
+﻿namespace Backend.Domain.Service.Services.Teams.Interfaces;
 
 public interface IRemoveTeamService
 {

@@ -1,8 +1,8 @@
 ﻿using Backend.Domain.Service.Repositories;
-using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Teams.Interfaces;
 using Backend.Infra.EntityLibrary.Entities;
 
-namespace Backend.Domain.Service.Services;
+namespace Backend.Domain.Service.Services.Teams;
 
 public class SearchTeamService(ITeamRepository repository) : ISearchTeamService
 {

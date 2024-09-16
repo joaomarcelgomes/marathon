@@ -1,7 +1,8 @@
 using Backend.Domain.Api.Middlewares;
 using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
-using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Teams;
+using Backend.Domain.Service.Services.Teams.Interfaces;
 using Backend.Domain.Service.Services.Users;
 using Backend.Domain.Service.Services.Users.Interfaces;
 using Backend.Infra.EntityLibrary.Data;

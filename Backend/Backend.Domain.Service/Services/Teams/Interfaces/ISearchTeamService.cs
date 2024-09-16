@@ -1,6 +1,6 @@
 ﻿using Backend.Infra.EntityLibrary.Entities;
 
-namespace Backend.Domain.Service.Services.Interfaces;
+namespace Backend.Domain.Service.Services.Teams.Interfaces;
 
 public interface ISearchTeamService
 {

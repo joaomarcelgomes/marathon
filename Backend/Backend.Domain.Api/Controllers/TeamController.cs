@@ -1,5 +1,5 @@
 ﻿using Backend.Domain.Api.Models.Requests;
-using Backend.Domain.Service.Services.Interfaces;
+using Backend.Domain.Service.Services.Teams.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Domain.Api.Controllers;
