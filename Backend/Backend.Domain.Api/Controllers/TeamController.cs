@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.Api.Models.Requests;
+using Backend.Domain.Api.Models.Requests.Teams;
 using Backend.Domain.Service.Services.Teams.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

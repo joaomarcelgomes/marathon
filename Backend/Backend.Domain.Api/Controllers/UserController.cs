@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.Api.Models.Requests;
+using Backend.Domain.Api.Models.Requests.Users;
 using Backend.Domain.Service.Services.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

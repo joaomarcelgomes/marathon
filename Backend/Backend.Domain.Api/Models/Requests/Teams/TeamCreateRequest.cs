@@ -1,4 +1,4 @@
-﻿namespace Backend.Domain.Api.Models.Requests;
+﻿namespace Backend.Domain.Api.Models.Requests.Teams;
 
 public class TeamCreateRequest
 {

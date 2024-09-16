@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.Auth.Auth;
 using Backend.Domain.Service.Models.Responses;
+using Backend.Domain.Service.Models.Responses.Users;
 using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services.Users.Interfaces;
 
