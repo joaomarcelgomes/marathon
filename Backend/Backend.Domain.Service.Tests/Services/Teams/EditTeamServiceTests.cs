@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
+using Backend.Domain.Service.Services.Teams;
 using Backend.Infra.EntityLibrary.Entities;
 using Moq;
 

@@ -1,5 +1,6 @@
 ﻿using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services;
+using Backend.Domain.Service.Services.Teams;
 using Moq;
 
 namespace Backend.Domain.Service.Tests.Services;
