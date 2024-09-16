@@ -23,4 +23,10 @@ public class CompetitionRepository(DataContext context) : ICompetitionRepository
         context.Competitions.Update(competition);
         return context.SaveChangesAsync();
     }
+
+    public async Task Delete(EntityLibrary.Entities.Competition competition)
+    {
+        context.Competitions.Remove(competition);
+        await context.SaveChangesAsync();
+    }
 }

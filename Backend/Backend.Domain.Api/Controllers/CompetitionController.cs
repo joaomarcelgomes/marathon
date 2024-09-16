@@ -37,4 +37,19 @@ public class CompetitionController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete([FromServices] IDeleteCompetitionService service, int id)
+    {
+        try
+        {
+            await service.DeleteCompetition(id);
+            
+            return Ok(new { success = true, message = "Competição deletada com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
 }
