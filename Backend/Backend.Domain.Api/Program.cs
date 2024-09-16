@@ -51,6 +51,7 @@ builder.Services.AddScoped<IDeleteUserService, DeleteUserService>();
 builder.Services.AddScoped<IUpdateUserService, UpdateUserService>();
 
 builder.Services.AddScoped<ICreateCompetitionService, CreateCompetitionService>();
+builder.Services.AddScoped<IEditCompetitionService, EditCompetitionService>();
 
 var app = builder.Build();
 

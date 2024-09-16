@@ -22,4 +22,19 @@ public class CompetitionController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
+    
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Edit([FromServices] IEditCompetitionService service, int id, [FromBody] EditCompetitionRequest request)
+    {
+        try
+        {
+            await service.EditCompetition(id, request.Name, request.Description, request.Prize, request.Start, request.End);
+            
+            return Ok(new { success = true, message = "Competição editada com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
 }

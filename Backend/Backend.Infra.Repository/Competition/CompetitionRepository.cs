@@ -14,4 +14,13 @@ public class CompetitionRepository(DataContext context) : ICompetitionRepository
         await context.Competitions.AddAsync(competition);
         await context.SaveChangesAsync();
     }
+
+    public async Task<EntityLibrary.Entities.Competition?> Find(int id)
+        => await context.Competitions.FindAsync(id);
+
+    public Task Edit(EntityLibrary.Entities.Competition competition)
+    {
+        context.Competitions.Update(competition);
+        return context.SaveChangesAsync();
+    }
 }
