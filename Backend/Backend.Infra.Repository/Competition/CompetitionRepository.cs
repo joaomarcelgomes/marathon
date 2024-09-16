@@ -18,6 +18,9 @@ public class CompetitionRepository(DataContext context) : ICompetitionRepository
     public async Task<EntityLibrary.Entities.Competition?> Find(int id)
         => await context.Competitions.FindAsync(id);
 
+    public async Task<List<EntityLibrary.Entities.Competition>> All(int userId) 
+        => await context.Competitions.Where(comp => comp.UserId == userId).ToListAsync();
+
     public Task Edit(EntityLibrary.Entities.Competition competition)
     {
         context.Competitions.Update(competition);

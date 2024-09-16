@@ -53,6 +53,7 @@ builder.Services.AddScoped<IUpdateUserService, UpdateUserService>();
 builder.Services.AddScoped<ICreateCompetitionService, CreateCompetitionService>();
 builder.Services.AddScoped<IEditCompetitionService, EditCompetitionService>();
 builder.Services.AddScoped<IDeleteCompetitionService, DeleteCompetitionService>();
+builder.Services.AddScoped<ISearchCompetitionService, SearchCompetitionService>();
 
 var app = builder.Build();
 

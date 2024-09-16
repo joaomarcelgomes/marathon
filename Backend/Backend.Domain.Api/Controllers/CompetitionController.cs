@@ -52,4 +52,19 @@ public class CompetitionController : ControllerBase
             return BadRequest(new { success = false, message = ex.Message });
         }
     }
+    
+    [HttpGet("{userId:int}")]
+    public async Task<IActionResult> Search([FromServices] ISearchCompetitionService service, int userId)
+    {
+        try
+        {
+            var competitions = await service.SearchCompetitions(userId);
+            
+            return Ok(new { success = true, message = "Competições encontradas com sucesso", competitions });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
 }
