@@ -7,3 +7,7 @@ export async function all() {
 export async function create(data: CreateTeamRequest) {
   return config.post<CreateTeamResponse>('/team/create', data)
 }
+
+export async function remove(id: number) {
+  return config.delete('/team/remove/' + id)
+}

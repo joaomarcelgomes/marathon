@@ -5,10 +5,16 @@ import useAuth from '@/hooks/use-auth'
 import Table from '@/components/Table'
 import Input from '@/components/Input'
 import Icon from '@/components/Icon'
+import api from '@/lib/axios/api'
 
 export function Teams() {
   const { user } = useAuth()
   const [search, setSearch] = useState('')
+
+  const removeTeam = async (id: number) => {
+    await api.team.remove(id)
+    window.location.reload()
+  }
 
   const teams = user.teams.filter(
     (team) =>
@@ -20,7 +26,7 @@ export function Teams() {
     if (teams.length == 0)
       return (
         <tr>
-          <td colSpan={5}>
+          <td colSpan={6}>
             <div className="min-vh-100 d-flex flex-column text-center justify-content-center">
               <h3>Nenhum time encontrado</h3>
             </div>
@@ -36,6 +42,17 @@ export function Teams() {
         <td align="center">{team.users.length}</td>
         <td align="center">
           <img src={team.imageUrl} width={24} height={24} alt={team.name} />
+        </td>
+        <td align="right">
+          <a href={`/times/edita/${team.id}`} className="btn d-inline-block">
+            <Icon.Edit />
+          </a>
+          <button
+            className="btn d-inline-block"
+            onClick={() => removeTeam(team.id)}
+          >
+            <Icon.Delete />
+          </button>
         </td>
       </tr>
     ))
@@ -71,6 +88,7 @@ export function Teams() {
                   <th>Abreviação</th>
                   <th>Competidores</th>
                   <th>Escudo</th>
+                  <th></th>
                 </tr>
               </Table.Head>
               <Table.Body>

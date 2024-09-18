@@ -6,10 +6,16 @@ import useAuth from '@/hooks/use-auth'
 import Table from '@/components/Table'
 import Input from '@/components/Input'
 import Icon from '@/components/Icon'
+import api from '@/lib/axios/api'
 
 export function Competitions() {
   const { user } = useAuth()
   const [search, setSearch] = useState('')
+
+  const removeCompetition = async (id: number) => {
+    await api.competition.remove(id)
+    window.location.reload()
+  }
 
   const competitions = user.competitions.filter(
     (competition) =>
@@ -21,7 +27,7 @@ export function Competitions() {
     if (competitions.length == 0)
       return (
         <tr>
-          <td colSpan={8}>
+          <td colSpan={9}>
             <div className="min-vh-100 d-flex flex-column text-center justify-content-center">
               <h3>Nenhuma competição encontrada</h3>
             </div>
@@ -40,6 +46,20 @@ export function Competitions() {
         <td align="center">{moment(competition.end).format('DD/MM/YYYY')}</td>
         <td align="center">
           {moment().isAfter(competition.end) ? 'Sim' : 'Não'}
+        </td>
+        <td align="right">
+          <a
+            href={`/competicoes/edita/${competition.id}`}
+            className="btn d-inline-block"
+          >
+            <Icon.Edit />
+          </a>
+          <button
+            className="btn d-inline-block"
+            onClick={() => removeCompetition(competition.id)}
+          >
+            <Icon.Delete />
+          </button>
         </td>
       </tr>
     ))
@@ -78,6 +98,7 @@ export function Competitions() {
                   <th className="text-center">Início</th>
                   <th className="text-center">Fim</th>
                   <th className="text-center">Acabou</th>
+                  <th></th>
                 </tr>
               </Table.Head>
               <Table.Body>

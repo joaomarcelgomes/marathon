@@ -60,6 +60,8 @@ declare global {
   } & Omit<Team, 'id' | 'users' | 'createdAt'>
   type CreateTeamResponse = Response<void>
 
+  type DeleteTeamResponse = Response<void>
+
   /* Competitions */
   type GetCompetitionsResponse = {
     competitions: Competition[]
@@ -70,6 +72,8 @@ declare global {
     teamsIds: number[]
   } & Omit<Competition, 'id' | 'teams'>
   type CreateCompetitionResponse = Response<void>
+
+  type DeleteCompetitionResponse = Response<void>
 
   /* Authentication */
   type LoginRequest = {

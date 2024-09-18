@@ -7,3 +7,7 @@ export async function all(id: number) {
 export async function create(data: CreateCompetitionRequest) {
   return config.post<CreateCompetitionResponse>('/competition', data)
 }
+
+export async function remove(id: number) {
+  return config.delete('/competition/' + id)
+}
