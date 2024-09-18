@@ -43,7 +43,7 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IGetAllUsersService, GetAllUsersService>();
 builder.Services.AddScoped<ICompetitionRepository, CompetitionRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
-
+ 
 builder.Services.AddScoped<ICreateUserService, CreateUserService>();
 builder.Services.AddScoped<ILoginUserService, LoginUserService>();
 

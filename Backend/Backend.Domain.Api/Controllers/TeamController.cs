@@ -2,6 +2,7 @@
 using Backend.Domain.Service.Services.Competitions.Interfaces;
 using Backend.Domain.Service.Services.Teams.Interfaces;
 using Backend.Domain.Service.Services.Users.Interfaces;
+using Backend.Infra.EntityLibrary.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Domain.Api.Controllers;
@@ -18,13 +19,13 @@ public class TeamController : ControllerBase
             var teams = await teamService.All();
             
             if(teams.Count == 0)
-                return NotFound(new { success = false, message = "Nenhum time encontrado", data = teams });
+                return Ok(new { success = false, message = "Nenhum time encontrado", data = Array.Empty<Team>() });
             
             return Ok(new { success = true, message = "Lista de times", data = teams });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { success = false, message = ex.Message });
+            return BadRequest(new { success = false, message = ex.Message, data = Array.Empty<Team>() });
         }
     }
     
@@ -36,7 +37,7 @@ public class TeamController : ControllerBase
             var teams = await teamService.Search(q);
             
             if(teams.Count == 0)
-                return NotFound(new { success = false, message = "Nenhum time encontrado", data = teams });
+                return Ok(new { success = false, message = "Nenhum time encontrado", data = teams });
             
             return Ok(new { success = true, message = "Lista de times", data = teams });
         }
