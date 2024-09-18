@@ -1,7 +1,7 @@
+import success from '../messages/success'
 import user from '../entities/user'
-import response from '../helpers/response'
 
 export default {
-  ...response,
+  ...success,
   data: user,
 }

@@ -1,6 +1,9 @@
 import config from '@/lib/axios/config'
-import type { Response, Competitions } from 'auth'
 
 export async function all(id: number) {
-  return await config.get<Response<Competitions[]>>('/competition/' + id)
+  return config.get<GetCompetitionsResponse>('/competition/' + id)
+}
+
+export async function create(data: CreateCompetitionRequest) {
+  return config.post<CreateCompetitionResponse>('/competition', data)
 }

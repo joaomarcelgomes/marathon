@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import retrieveUser from '@/utils/retrieve-user'
 import * as cookies from '@/utils/cookies'
 import api from '@/lib/axios/api'
-import type { User } from 'auth'
 
 export type AuthContext = {
   user: User
   loading: boolean
   authenticated: boolean
-  register: (name: string, email: string, password: string) => Promise<void>
-  signin: (email: string, password: string) => Promise<void>
+  register: (data: CreateUserRequest) => Promise<void>
+  signin: (data: LoginRequest) => Promise<void>
   signout: () => void
-  updateUser: (name: string, email: string, password: string) => Promise<void>
+  updateUser: (data: UpdateUserRequest) => Promise<void>
   removeUser: () => Promise<void>
 }
 
@@ -36,14 +35,14 @@ export const AuthProvider: React.FC<{
     setCurrentUser()
   }, [])
 
-  const register = async (name: string, email: string, password: string) => {
-    const response = await api.user.register(name, email, password)
+  const register = async (data: CreateUserRequest) => {
+    const response = await api.user.create(data)
     cookies.setSession(response.data.data.token)
     setUser(response.data.data.user as User)
   }
 
-  const signin = async (email: string, password: string) => {
-    const response = await api.user.login(email, password)
+  const signin = async (data: LoginRequest) => {
+    const response = await api.user.login(data)
     cookies.setSession(response.data.data.token)
     setCurrentUser()
   }
@@ -53,9 +52,16 @@ export const AuthProvider: React.FC<{
     setUser(null)
   }
 
-  const updateUser = async (name: string, email: string, password: string) => {
-    await api.user.update(user.id, name, email, password)
-    setUser((data) => ({ ...data, name, email }))
+  const updateUser = async (data: UpdateUserRequest) => {
+    data = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      ...data,
+    }
+    await api.user.update(data)
+    setUser({ ...user, ...data })
   }
 
   const removeUser = async () => {

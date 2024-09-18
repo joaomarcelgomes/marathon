@@ -1,8 +1,8 @@
+import success from '../messages/success'
 import session from '../data/session'
-import response from '../helpers/response'
 
 export default {
-  ...response,
+  ...success,
   message: 'Usuário logado com sucesso',
   data: session,
 }

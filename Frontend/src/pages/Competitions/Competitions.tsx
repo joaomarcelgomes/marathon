@@ -1,19 +1,27 @@
 import moment from 'moment'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import HomeLayout from '@/layouts/Home'
 import useAuth from '@/hooks/use-auth'
 import Table from '@/components/Table'
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Icon from '@/components/Icon'
 
 export function Competitions() {
   const { user } = useAuth()
+  const [search, setSearch] = useState('')
 
-  const Competitions = () => {
-    if (user.competitions.length == 0)
+  const competitions = user.competitions.filter(
+    (competition) =>
+      competition.name.toLowerCase().includes(search.toLowerCase()) ||
+      competition.description.toLowerCase().includes(search.toLowerCase())
+  )
+
+  const UserCompetitions = () => {
+    if (competitions.length == 0)
       return (
         <tr>
-          <td colSpan={7}>
+          <td colSpan={8}>
             <div className="min-vh-100 d-flex flex-column text-center justify-content-center">
               <h3>Nenhuma competição encontrada</h3>
             </div>
@@ -21,53 +29,61 @@ export function Competitions() {
         </tr>
       )
 
-    return user.competitions.map((competition) => (
-      <tr>
+    return competitions.map((competition, i) => (
+      <tr key={i}>
+        <td align="center">{competition.id}</td>
         <td>{competition.name}</td>
         <td>{competition.description}</td>
-        <td>{competition.prize}</td>
-        <td>{competition.teams.length}</td>
-        <td>{moment(competition.start).format('DD/MM/YYYY')}</td>
-        <td>{moment(competition.end).format('DD/MM/YYYY')}</td>
-        <td>{moment().isAfter(competition.end) ? 'Sim' : 'Não'}</td>
+        <td className="text-nowrap">{competition.prize}</td>
+        <td align="center">{competition.teams.length}</td>
+        <td align="center">{moment(competition.start).format('DD/MM/YYYY')}</td>
+        <td align="center">{moment(competition.end).format('DD/MM/YYYY')}</td>
+        <td align="center">
+          {moment().isAfter(competition.end) ? 'Sim' : 'Não'}
+        </td>
       </tr>
     ))
   }
 
   return (
     <HomeLayout>
-      <div className="container-fluid mt-4 max-w-lg min-w-sm min-vh-100">
+      <div className="container-fluid mt-4 max-w-lg min-w-sm h-100">
         <h1>Competições</h1>
         <section className="d-flex justify-content-between mt-4">
           <div className="w-50">
             <Input
-              icon={<Icon.Search />}
+              spellCheck="false"
               placeholder="Pesquisar"
               className="shadow-none"
+              icon={<Icon.Search />}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <Button icon={<Icon.Plus size={14} className="mr-3" />}>
+          <Link className="btn btn-primary" to="/competicoes/cria">
+            <Icon.Plus size={14} className="mr-3" />
             Nova Competição
-          </Button>
+          </Link>
         </section>
+
         <section>
           <div className="min-vh-100 m-4 mx-auto bg-6 rounded">
-            <Table.Root>
-              <Table.Head>
+            <Table.Component>
+              <Table.Head className="bg-5">
                 <tr>
+                  <th className="text-center">#</th>
                   <th>Nome</th>
                   <th>Descrição</th>
                   <th>Prêmio</th>
-                  <th>Times</th>
-                  <th>Início</th>
-                  <th>Fim</th>
-                  <th>Acabou</th>
+                  <th className="text-center">Times</th>
+                  <th className="text-center">Início</th>
+                  <th className="text-center">Fim</th>
+                  <th className="text-center">Acabou</th>
                 </tr>
               </Table.Head>
               <Table.Body>
-                <Competitions />
+                <UserCompetitions />
               </Table.Body>
-            </Table.Root>
+            </Table.Component>
           </div>
         </section>
       </div>

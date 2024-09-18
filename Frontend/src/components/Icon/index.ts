@@ -9,6 +9,8 @@ import { Plus } from './Plus'
 import { Search } from './Search'
 import { Settings } from './Settings'
 import { Swords } from './Swords'
+import { Edit } from './Edit'
+import { Delete } from './Delete'
 
 export default {
   Email,
@@ -20,4 +22,6 @@ export default {
   Search,
   Settings,
   Swords,
+  Edit,
+  Delete,
 }

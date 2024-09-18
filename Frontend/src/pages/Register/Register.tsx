@@ -1,39 +1,46 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Icon from '@/components/Icon'
 import Input from '@/components/Input'
 import useAuth from '@/hooks/use-auth'
 import schema from '@/lib/zod/register-schema'
+import avatar from '@/utils/avatar-url'
 import zod from 'zod'
 
 export function Register() {
   const { register } = useAuth()
-  const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
 
   const login = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     try {
-      schema.parse({ name, email, password, confirmPassword })
-      await register(name, email, password)
-      navigate('/')
+      schema.parse({ ...form, confirmPassword })
+      await register({ ...form, avatar: avatar(form.name) })
+      window.location.href = '/'
     } catch (error) {
       if (error instanceof zod.ZodError) {
         setError(error.errors[0].message)
       } else {
-        setError('E-mail e/ou senha inválidos.')
+        console.log(error)
+        setError('Ocorreu um erro. Tente mais tarde.')
       }
     }
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
   return (
     <main className="container min-vh-100">
-      <div className="wrapper text-center">
+      <div className="p-8 mx-auto text-center">
         <Link to="/">
           <img
             src="/marathon-logo.svg"
@@ -49,32 +56,30 @@ export function Register() {
           spellCheck="false"
         >
           <Input
-            type="text"
-            value={name}
+            name="name"
             placeholder="Nome completo"
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleChange}
             icon={<Icon.Person />}
             required
           />
           <Input
             type="email"
-            value={email}
+            name="email"
             placeholder="E-mail"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             icon={<Icon.Email />}
             required
           />
           <Input
             type="password"
-            value={password}
+            name="password"
             placeholder="Senha"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             icon={<Icon.Lock />}
             required
           />
           <Input
             type="password"
-            value={confirmPassword}
             placeholder="Confirmar senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
             icon={<Icon.Lock />}

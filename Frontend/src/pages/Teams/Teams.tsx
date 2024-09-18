@@ -1,18 +1,26 @@
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import HomeLayout from '@/layouts/Home'
 import useAuth from '@/hooks/use-auth'
 import Table from '@/components/Table'
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Icon from '@/components/Icon'
 
 export function Teams() {
   const { user } = useAuth()
+  const [search, setSearch] = useState('')
 
-  const Teams = () => {
-    if (user.teams.length == 0)
+  const teams = user.teams.filter(
+    (team) =>
+      team.name.toLowerCase().includes(search.toLowerCase()) ||
+      team.shortName.toLowerCase().includes(search.toLowerCase())
+  )
+
+  const UserTeams = () => {
+    if (teams.length == 0)
       return (
         <tr>
-          <td colSpan={7}>
+          <td colSpan={5}>
             <div className="min-vh-100 d-flex flex-column text-center justify-content-center">
               <h3>Nenhum time encontrado</h3>
             </div>
@@ -20,13 +28,13 @@ export function Teams() {
         </tr>
       )
 
-    return user.teams.map((team) => (
-      <tr className="text-center">
-        <td>{team.id}</td>
-        <td>{team.name}</td>
-        <td>{team.shortName}</td>
-        <td>{team.members.length}</td>
-        <td>
+    return teams.map((team, i) => (
+      <tr key={i}>
+        <td align="center">{team.id}</td>
+        <td align="center">{team.name}</td>
+        <td align="center">{team.shortName}</td>
+        <td align="center">{team.users.length}</td>
+        <td align="center">
           <img src={team.imageUrl} width={24} height={24} alt={team.name} />
         </td>
       </tr>
@@ -40,20 +48,24 @@ export function Teams() {
         <section className="d-flex justify-content-between mt-4">
           <div className="w-50">
             <Input
-              icon={<Icon.Search />}
+              spellCheck="false"
               placeholder="Pesquisar"
               className="shadow-none"
+              icon={<Icon.Search />}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <Button icon={<Icon.Plus size={14} className="mr-3" />}>
+          <Link className="btn btn-primary" to="/times/cria">
+            <Icon.Plus size={14} className="mr-3" />
             Novo Time
-          </Button>
+          </Link>
         </section>
+
         <section>
           <div className="min-vh-100 m-4 mx-auto bg-6 rounded">
-            <Table.Root>
-              <Table.Head>
-                <tr>
+            <Table.Component>
+              <Table.Head className="bg-5">
+                <tr className="text-center">
                   <th>#</th>
                   <th>Nome</th>
                   <th>Abreviação</th>
@@ -62,9 +74,9 @@ export function Teams() {
                 </tr>
               </Table.Head>
               <Table.Body>
-                <Teams />
+                <UserTeams />
               </Table.Body>
-            </Table.Root>
+            </Table.Component>
           </div>
         </section>
       </div>

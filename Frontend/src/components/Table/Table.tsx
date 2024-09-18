@@ -1,10 +1,10 @@
 import classnames from 'classnames'
 
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+export interface TableProps extends React.ComponentProps<'table'> {
   children: React.ReactNode
 }
 
-export const Root: React.FC<TableProps> = ({
+export const Table: React.FC<TableProps> = ({
   children,
   className,
   ...props

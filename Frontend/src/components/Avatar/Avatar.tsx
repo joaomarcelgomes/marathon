@@ -1,4 +1,4 @@
-export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AvatarProps extends React.ComponentProps<'div'> {
   url: string
   width: string | number
   height: string | number

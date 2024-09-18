@@ -9,16 +9,18 @@ import zod from 'zod'
 export function Login() {
   const { signin } = useAuth()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  })
 
-  const login = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const login = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
     try {
-      schema.parse({ email, password })
-      await signin(email, password)
+      schema.parse(form)
+      await signin(form)
       navigate('/')
     } catch (error) {
       if (error instanceof zod.ZodError) {
@@ -29,9 +31,13 @@ export function Login() {
     }
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
   return (
     <main className="container min-vh-100">
-      <div className="wrapper text-center">
+      <div className="p-8 mx-auto text-center">
         <Link to="/">
           <img
             src="/marathon-logo.svg"
@@ -48,17 +54,17 @@ export function Login() {
         >
           <Input
             type="email"
-            value={email}
+            name="email"
             placeholder="Informe seu e-mail"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             icon={<Icon.Email />}
             required
           />
           <Input
             type="password"
-            value={password}
+            name="password"
             placeholder="Informe sua senha"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
             icon={<Icon.Lock />}
             required
           />

@@ -25,7 +25,7 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside className="sm-sticky-top sm-vh-100 col-sm-auto bg-1">
-      <div className="d-flex flex-sm-column flex-sm-row flex-row-reverse gap-sm-5 align-items-center sticky-top h-100">
+      <div className="d-flex flex-sm-column flex-row-reverse gap-sm-5 align-items-center sticky-top h-100">
         <Link to="/perfil" className="d-block mt-sm-3 p-3">
           <Avatar url={user.avatar} width={38} height={38} />
         </Link>
@@ -34,9 +34,13 @@ export const Sidebar: React.FC = () => {
             <Item
               href="/times"
               icon={Icon.Groups}
-              selected={pathname === '/times'}
+              selected={pathname.startsWith('/times')}
             />
-            <Item href="/" icon={Icon.Swords} selected={pathname === '/'} />
+            <Item
+              href="/"
+              icon={Icon.Swords}
+              selected={pathname === '/' || pathname.startsWith('/competicoes')}
+            />
           </ul>
           <ul className="nav nav-pills nav-flush flex-sm-column justify-content-sm-end flex-row h-100 px-3 align-items-center">
             <Item

@@ -1,7 +1,7 @@
 import success from '../messages/success'
-import competitions from '../data/competitions'
+import users from '../data/users'
 
 export default {
   ...success,
-  data: competitions,
+  data: users,
 }

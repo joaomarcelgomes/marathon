@@ -52,16 +52,22 @@
   background-color: var(--shape-6);
 }
 
+.max-w-xs {
+  max-width: 600px;
+}
 .max-w-sm {
   max-width: 992px;
 }
 .max-w-md {
   max-width: 1280px;
 }
-.min-w-lg {
-  min-width: 1400px;
+.max-w-lg {
+  max-width: 1400px;
 }
 
+.min-w-xs {
+  min-width: 635px;
+}
 .min-w-sm {
   min-width: 992px;
 }
@@ -81,6 +87,10 @@
 }
 .mr-4 {
   margin-right: 1rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .text-underline {

@@ -1,7 +1,7 @@
 import classnames from 'classnames'
 import type { IconProps } from '@/components/Icon'
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ComponentProps<'button'> {
   icon?: React.ReactElement<IconProps>
   children?: React.ReactNode
 }

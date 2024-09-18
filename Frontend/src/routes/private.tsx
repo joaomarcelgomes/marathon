@@ -5,11 +5,19 @@ import Profile from '@/pages/Profile'
 export default [
   {
     path: '/',
-    element: <Competitions />,
+    element: <Competitions.Main />,
+  },
+  {
+    path: '/competicoes/cria',
+    element: <Competitions.Create />,
   },
   {
     path: '/times',
-    element: <Teams />,
+    element: <Teams.Main />,
+  },
+  {
+    path: '/times/cria',
+    element: <Teams.Create />,
   },
   {
     path: '/perfil',

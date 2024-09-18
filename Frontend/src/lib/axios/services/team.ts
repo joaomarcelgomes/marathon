@@ -1,6 +1,9 @@
 import config from '@/lib/axios/config'
-import type { Response, Team } from 'auth'
 
-export async function all(id: number) {
-  return await config.get<Response<Team[]>>('/team/' + id)
+export async function all() {
+  return config.get<GetTeamsResponse>('/team/all')
+}
+
+export async function create(data: CreateTeamRequest) {
+  return config.post<CreateTeamResponse>('/team/create', data)
 }

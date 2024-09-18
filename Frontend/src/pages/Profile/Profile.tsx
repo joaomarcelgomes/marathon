@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Input from '@/components/Input'
 import useAuth from '@/hooks/use-auth'
@@ -10,18 +10,23 @@ import zod from 'zod'
 export function Profile() {
   const navigate = useNavigate()
   const { user, updateUser, removeUser } = useAuth()
-
-  const [name, setName] = useState(user.name)
-  const [email, setEmail] = useState(user.email)
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [form, setForm] = useState({
+    name: user.name,
+    email: user.email,
+    password: '',
+  })
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const update = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     try {
-      schema.parse({ name, email, password })
-      await updateUser(name, email, password)
+      schema.parse(form)
+      await updateUser(form)
       setError('')
     } catch (error) {
       if (error instanceof zod.ZodError) {
@@ -44,7 +49,7 @@ export function Profile() {
   return (
     <HomeLayout>
       <section className="container h-100 mt-3">
-        <div className="wrapper">
+        <div className="p-8 mx-auto">
           <div className="d-flex flex-column align-items-center gap-3 mb-2">
             <Avatar url={user.avatar} width={120} height={120} />
             <h3>{user.name}</h3>
@@ -59,10 +64,10 @@ export function Profile() {
               <label htmlFor="name">Nome</label>
               <Input
                 id="name"
-                type="text"
-                value={name}
+                name="name"
+                value={form.name}
                 className="shadow-sm"
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group">
@@ -70,9 +75,10 @@ export function Profile() {
               <Input
                 id="email"
                 type="email"
-                value={email}
+                name="email"
+                value={form.email}
                 className="shadow-sm"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group">
@@ -80,9 +86,10 @@ export function Profile() {
               <Input
                 id="password"
                 type="password"
-                value={password}
+                name="password"
+                value={form.password}
                 className="shadow-sm"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChange}
               />
             </div>
             {error && (
@@ -96,11 +103,9 @@ export function Profile() {
               value="Salvar"
             />
           </form>
-          <div className="text-center mt-4">
-            <button className="btn text-underline" onClick={remove}>
-              Excluir conta
-            </button>
-          </div>
+          <button className="btn text-underline mt-4 mx-auto" onClick={remove}>
+            Excluir conta
+          </button>
         </div>
       </section>
     </HomeLayout>
