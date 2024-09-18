@@ -70,8 +70,6 @@ builder.Services.AddScoped<IDefineWinnerMatchService, DefineWinnerMatchService>(
 
 var app = builder.Build();
 
-app.UseMiddleware<TokenValidationMiddleware>();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -79,6 +77,8 @@ app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
+
+app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseRouting();
 
