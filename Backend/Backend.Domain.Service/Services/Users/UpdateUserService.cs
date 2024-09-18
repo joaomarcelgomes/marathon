@@ -7,6 +7,11 @@ public class UpdateUserService(IUserRepository repository) : IUpdateUserService
 {
     public async Task Update(int id, string name, string avatar, string email, string password)
     {
+        var user = await repository.GetUser(id);
+        
+        if (user is null)
+            throw new ArgumentException("Usuário não encontrado");
+        
         if (string.IsNullOrWhiteSpace(name) || name.Length < 4)
             throw new ArgumentException("O nome do usuário precisa ter pelo menos 4 caracteres");
 
@@ -16,18 +21,15 @@ public class UpdateUserService(IUserRepository repository) : IUpdateUserService
         if(string.IsNullOrWhiteSpace(avatar))
             throw new ArgumentException("O avatar é obrigatório");
         
-        if (string.IsNullOrWhiteSpace(password) || password.Length < 8)
+        if (!string.IsNullOrWhiteSpace(password) && password.Length < 8)
             throw new ArgumentException("A senha precisa ter pelo menos 8 caracteres");
+        
+        if(!string.IsNullOrWhiteSpace(password) && password.Length >= 8)
+            user.Password = password;
 
-        var user = await repository.GetUser(id);
-        
-        if (user is null)
-            throw new ArgumentException("Usuário não encontrado");
-        
         user.Name = name;
         user.Avatar = avatar;
         user.Email = email;
-        user.Password = password;
         
         await repository.Update(user);
     }
