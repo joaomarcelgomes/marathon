@@ -1,11 +1,14 @@
-﻿using Backend.Domain.Service.Repositories;
+﻿using AutoFixture;
+using Backend.Domain.Service.Repositories;
 using Backend.Domain.Service.Services.Teams;
+using Backend.Infra.EntityLibrary.Entities;
 using Moq;
 
 namespace Backend.Domain.Service.Tests.Services.Teams;
 
 public class CreateTeamServiceTests
 {
+    private readonly Fixture _fixture = new();
     private readonly Mock<ITeamRepository> _repository = new();
     
     [Fact]
@@ -13,11 +16,11 @@ public class CreateTeamServiceTests
     {
         var service = new CreateTeamService(_repository.Object);
 
-        var list = new List<string> { "Membro 1", "Membro 2" };
+        var usersIds = _fixture.CreateMany<int>().ToList();
         
-        await service.Create("Time", "http:xyz.com/image.jpg", "TM", list);
+        await service.Create("Time", "http:xyz.com/image.jpg", "TM", usersIds);
         
-        _repository.Verify(x => x.Create("Time", "http:xyz.com/image.jpg", "TM", "MEMBRO 1;MEMBRO 2"), Times.Once);
+        _repository.Verify(x => x.Create("Time", "http:xyz.com/image.jpg", "TM", It.IsAny<List<User>>()), Times.Once);
     }
     
     [Fact]
@@ -25,9 +28,9 @@ public class CreateTeamServiceTests
     {
         var service = new CreateTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
+        var usersIds = _fixture.CreateMany<int>().ToList();
         
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("", "http:xyz.com/image.jpg", "TM", usersIds));
         
         Assert.Equal("Nome do time é obrigatório", exception.Message);
     }
@@ -37,9 +40,9 @@ public class CreateTeamServiceTests
     {
         var service = new CreateTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
+        var usersIds = _fixture.CreateMany<int>().ToList();
         
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "http:xyz.com/image.jpg", "", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "http:xyz.com/image.jpg", "", usersIds));
         
         Assert.Equal("Nome curto do time é obrigatório", exception.Message);
     }
@@ -49,9 +52,9 @@ public class CreateTeamServiceTests
     {
         var service = new CreateTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
+        var usersIds = _fixture.CreateMany<int>().ToList();
         
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "", "TM", usersIds));
         
         Assert.Equal("A url da imagem é obrigatória", exception.Message);
     }
@@ -61,9 +64,9 @@ public class CreateTeamServiceTests
     {
         var service = new CreateTeamService(_repository.Object);
         
-        var list = new List<string>();
+        var usersIds = new List<int>();
         
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.Create("Time", "http:xyz.com/image.jpg", "TM", usersIds));
         
         Assert.Equal("Membros do time são obrigatórios", exception.Message);
     }

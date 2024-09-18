@@ -8,4 +8,5 @@ public class CreateCompetitionRequest
     public int UserId { get; set; }
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
+    public List<int> TeamsIds { get; set; }
 }

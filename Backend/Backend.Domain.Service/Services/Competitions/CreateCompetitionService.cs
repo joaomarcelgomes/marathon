@@ -6,7 +6,7 @@ namespace Backend.Domain.Service.Services.Competitions;
 
 public class CreateCompetitionService(ICompetitionRepository repository) : ICreateCompetitionService
 {
-    public async Task Create(string name, string description, string prize, int userId, DateTime start, DateTime end)
+    public async Task Create(string name, string description, string prize, int userId, DateTime start, DateTime end, List<int> teamsIds)
     {
         if(string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("O nome da competição é obrigatório");
@@ -39,7 +39,12 @@ public class CreateCompetitionService(ICompetitionRepository repository) : ICrea
         
         if(start > end)
             throw new ArgumentException("A data de término da competição não pode ser menor que a data de início");
+
+        var teams = teamsIds.Count > 0 ? await repository.FindTeam(teamsIds) : [];
         
+        if(teams.Count != teamsIds.Count)
+            throw new ArgumentException("Alguma equipe não existe");
+
         var competition = new Competition
         {
             Name = name,
@@ -47,7 +52,8 @@ public class CreateCompetitionService(ICompetitionRepository repository) : ICrea
             Prize = prize,
             UserId = userId,
             Start = start,
-            End = end
+            End = end,
+            Teams = teams
         };
 
         await repository.Create(competition);

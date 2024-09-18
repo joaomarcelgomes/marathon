@@ -1,5 +1,5 @@
-﻿using Backend.Domain.Api.Models.Requests;
-using Backend.Domain.Api.Models.Requests.Users;
+﻿using Backend.Domain.Api.Models.Requests.Users;
+using Backend.Domain.Auth.Auth;
 using Backend.Domain.Service.Services.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,11 +47,17 @@ public class UserController : ControllerBase
         }
     }
     
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult> ReturnUser([FromServices] IReturnUserService userService, [FromHeader(Name = "Authorization")] string authorization, int id)
+    [HttpGet("profile")]
+    public async Task<ActionResult> ReturnUser([FromServices] IReturnUserService userService, [FromHeader(Name = "Authorization")] string authorization)
     {
         try
         {
+            var auth = new TokenService();
+            
+            var token = authorization.Split(" ").Last();
+            
+            var id = auth.GetUserId(token);
+            
             var user = await userService.ReturnUser(id);
 
             return Ok(new { success = true, data = user });
@@ -82,6 +88,21 @@ public class UserController : ControllerBase
         catch (Exception)
         {
             return BadRequest(new { success = false, message = "Não foi possível deletar o usuário" });
+        }
+    }
+    
+    [HttpGet("all")]
+    public async Task<ActionResult> All([FromServices] IGetAllUsersService userService)
+    {
+        try
+        {
+            var users = await userService.All();
+            
+            return Ok(new { success = true, data = users });
+        }
+        catch (Exception)
+        {
+            return BadRequest(new { success = false, message = "Não foi possível buscar os usuários" });
         }
     }
     

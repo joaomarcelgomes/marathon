@@ -13,7 +13,7 @@ public class CompetitionController : ControllerBase
     {
         try
         {
-            await service.Create(request.Name, request.Description, request.Prize, request.UserId, request.Start, request.End);
+            await service.Create(request.Name, request.Description, request.Prize, request.UserId, request.Start, request.End, request.TeamsIds);
             
             return Ok(new { success = true, message = "Competição criada com sucesso" });
         }
@@ -61,6 +61,36 @@ public class CompetitionController : ControllerBase
             var competitions = await service.SearchCompetitions(userId);
             
             return Ok(new { success = true, message = "Competições encontradas com sucesso", competitions });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
+    
+    [HttpPost("{id:int}/teams")]
+    public async Task<IActionResult> AddTeam([FromServices] IInsertTeamInCompetitionService service, int id, InsertTeamInCompetitionRequest teams)
+    {
+        try
+        {
+            await service.Insert(id, teams.TeamsIds);
+            
+            return Ok(new { success = true, message = "Equipes adicionadas com sucesso" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { success = false, message = ex.Message });
+        }
+    }
+    
+    [HttpDelete("{id:int}/team/{teamId:int}")]
+    public async Task<IActionResult> RemoveTeam([FromServices] IRemoveTeamOfCompetitionService service, int id, int teamId)
+    {
+        try
+        {
+            await service.Remove(id, teamId);
+            
+            return Ok(new { success = true, message = "Equipe removida com sucesso" });
         }
         catch (Exception ex)
         {

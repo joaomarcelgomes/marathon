@@ -16,9 +16,7 @@ public class EditTeamServiceTests
         
         var service = new EditTeamService(_repository.Object);
 
-        var list = new List<string> { "Membro 1", "Membro 2" };
-        
-        await service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM", list);
+        await service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM");
         
         _repository.Verify(x => x.Edit(It.IsAny<Team>()), Times.Once);
     }
@@ -28,9 +26,7 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
-        
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "", "http:xyz.com/image.jpg", "TM"));
         
         Assert.Equal("Nome do time é obrigatório", exception.Message);
     }
@@ -40,9 +36,7 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
-        
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "", "http:xyz.com/image.jpg", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "", "http:xyz.com/image.jpg"));
         
         Assert.Equal("Nome curto do time é obrigatório", exception.Message);
     }
@@ -52,9 +46,7 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
-        
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "TM", "", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "TM", ""));
         
         Assert.Equal("A url da imagem é obrigatória", exception.Message);
     }
@@ -64,9 +56,7 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string>();
-        
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM"));
         
         Assert.Equal("Membros do time são obrigatórios", exception.Message);
     }
@@ -76,11 +66,9 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
-
         _repository.Setup(x => x.Find(1));
         
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(1, "Time", "http:xyz.com/image.jpg", "TM"));
         
         Assert.Equal("Time não encontrado", exception.Message);
     }
@@ -90,9 +78,7 @@ public class EditTeamServiceTests
     {
         var service = new EditTeamService(_repository.Object);
         
-        var list = new List<string> { "Membro 1", "Membro 2" };
-        
-        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(0, "Time", "http:xyz.com/image.jpg", "TM", list));
+        var exception = await Assert.ThrowsAsync<Exception>(() => service.EditTeam(0, "Time", "http:xyz.com/image.jpg", "TM"));
         
         Assert.Equal("Time não encontrado", exception.Message);
     }

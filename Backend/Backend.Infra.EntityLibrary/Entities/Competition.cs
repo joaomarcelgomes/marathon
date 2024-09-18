@@ -11,4 +11,5 @@ public class Competition
     public DateTime End { get; set; }
     
     public User User { get; set; }
+    public List<Team> Teams { get; set; } = new List<Team>();
 }

@@ -27,7 +27,7 @@ public class TokenService
             audience: "marathon-api",
             claims: claims,
             notBefore: DateTime.Now,
-            expires: DateTime.Now.AddSeconds(30),
+            expires: DateTime.Now.AddDays(30),
             signingCredentials: credentials
         );
         
@@ -55,5 +55,15 @@ public class TokenService
         var userId = claims.FindFirst(ClaimTypes.NameIdentifier);
 
         return userId != null;
+    }
+    
+    public int GetUserId(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var claims = tokenHandler.ReadJwtToken(token).Claims;
+        
+        var userId = claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
+        
+        return int.Parse(userId);
     }
 }

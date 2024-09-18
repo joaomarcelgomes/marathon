@@ -2,5 +2,5 @@
 
 public interface ICreateTeamService
 {
-    public Task Create(string name, string imageUrl, string shortName, List<string> members);
+    public Task Create(string name, string imageUrl, string shortName, List<int> usersIds);
 }

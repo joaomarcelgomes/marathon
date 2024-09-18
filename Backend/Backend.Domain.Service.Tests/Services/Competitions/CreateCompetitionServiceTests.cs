@@ -16,6 +16,7 @@ public class CreateCompetitionServiceTests
     {
         // Arrange
         _repository.Setup(x => x.UserExists(It.IsAny<int>())).ReturnsAsync(true);
+        _repository.Setup(x => x.FindTeam(It.IsAny<List<int>>())).ReturnsAsync(_fixture.CreateMany<Team>().ToList());
         
         var service = new CreateCompetitionService(_repository.Object);
         var name = _fixture.Create<string>();
@@ -23,13 +24,61 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = DateTime.Now.AddDays(1);
         var end = DateTime.Now.AddDays(2);
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        await service.Create(name, description, prize, userId, start, end);
+        await service.Create(name, description, prize, userId, start, end, teamsIds);
         
         // Assert
         _repository.Verify(x => x.Create(It.IsAny<Competition>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task CreateCompetitionService_CreateCompetition_WithoutTeam()
+    {
+        // Arrange
+        _repository.Setup(x => x.UserExists(It.IsAny<int>())).ReturnsAsync(true);
+        _repository.Setup(x => x.FindTeam(It.IsAny<List<int>>())).ReturnsAsync([]);
+        
+        var service = new CreateCompetitionService(_repository.Object);
+        var name = _fixture.Create<string>();
+        var description = _fixture.Create<string>();
+        var prize = _fixture.Create<string>();
+        var start = DateTime.Now.AddDays(1);
+        var end = DateTime.Now.AddDays(2);
+        var teamsIds = new List<int>();
+        const int userId = 1;
+        
+        // Act
+        await service.Create(name, description, prize, userId, start, end, teamsIds);
+        
+        // Assert
+        _repository.Verify(x => x.Create(It.IsAny<Competition>()), Times.Once);
+    }
+    
+    [Fact]
+    public async Task CreateCompetitionTeamService_CreateCompetition_WithTeamsNotExists()
+    {
+        
+        // Arrange
+        _repository.Setup(x => x.UserExists(It.IsAny<int>())).ReturnsAsync(true);
+        _repository.Setup(x => x.FindTeam(It.IsAny<List<int>>())).ReturnsAsync([]);
+        
+        var service = new CreateCompetitionService(_repository.Object);
+        var name = _fixture.Create<string>();
+        var description = _fixture.Create<string>();
+        var prize = _fixture.Create<string>();
+        var start = DateTime.Now.AddDays(1);
+        var end = DateTime.Now.AddDays(2);
+        var teamsIds = _fixture.CreateMany<int>().ToList();
+        const int userId = 1;
+        
+        // Act
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
+        
+        // Assert
+        Assert.Equal("Alguma equipe não existe", exception.Message);
     }
     
     [Fact]
@@ -42,10 +91,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = _fixture.Create<DateTime>();
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("O nome da competição é obrigatório", exception.Message);
@@ -61,10 +111,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = _fixture.Create<DateTime>();
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("A descrição da competição é obrigatória", exception.Message);
@@ -80,10 +131,11 @@ public class CreateCompetitionServiceTests
         var prize = string.Empty;
         var start = _fixture.Create<DateTime>();
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("O prêmio da competição é obrigatório", exception.Message);
@@ -101,10 +153,12 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         DateTime start = default;
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
+        
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("A data de início da competição é obrigatória", exception.Message);
@@ -122,10 +176,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = _fixture.Create<DateTime>();
         DateTime end = default;
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("A data de término da competição é obrigatória", exception.Message);
@@ -143,10 +198,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = DateTime.Now.AddDays(-1);
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("A data de início da competição não pode ser menor que a data atual", exception.Message);
@@ -164,10 +220,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = DateTime.Now.AddDays(1);
         var end = DateTime.Now.AddDays(-1);
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("A data de término da competição não pode ser menor que a data atual", exception.Message);
@@ -183,10 +240,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = _fixture.Create<DateTime>();
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = -1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("O usuário é obrigatório", exception.Message);
@@ -204,10 +262,11 @@ public class CreateCompetitionServiceTests
         var prize = _fixture.Create<string>();
         var start = _fixture.Create<DateTime>();
         var end = _fixture.Create<DateTime>();
+        var teamsIds = _fixture.CreateMany<int>().ToList();
         const int userId = 1;
         
         // Act
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => service.Create(name, description, prize, userId, start, end, teamsIds));
         
         // Assert
         Assert.Equal("O usuário não existe", exception.Message);
