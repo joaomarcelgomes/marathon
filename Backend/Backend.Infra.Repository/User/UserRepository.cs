@@ -1,5 +1,4 @@
-﻿using Backend.Domain.Service.Models.Responses;
-using Backend.Domain.Service.Repositories;
+﻿using Backend.Domain.Service.Repositories;
 using Backend.Infra.EntityLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Entities = Backend.Infra.EntityLibrary.Entities;
@@ -25,13 +24,16 @@ public class UserRepository(DataContext context) : IUserRepository
     }
 
     public async Task<bool> EmailExists(string email) 
-        => await context.Users.AnyAsync(x => x != null && x.Email == email);
+        => await context.Users.AnyAsync(x => x.Email == email);
     
     public async Task<Entities.User?> GetUser(string email, string password)
-        => await context.Users.FirstOrDefaultAsync(x => x != null && x.Email == email && x.Password == password);
+        => await context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+
+    public async Task<List<Entities.User>> All()
+        => await context.Users.ToListAsync();
 
     public Task<Entities.User?> GetUser(int id)
-        => context.Users.FirstOrDefaultAsync(x => x != null && x.Id == id);
+        => context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task Delete(Entities.User user)
     {

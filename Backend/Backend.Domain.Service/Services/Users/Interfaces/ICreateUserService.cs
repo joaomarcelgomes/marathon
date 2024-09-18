@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.Service.Models.Responses;
+using Backend.Domain.Service.Models.Responses.Users;
 using Backend.Infra.EntityLibrary.Entities;
 
 namespace Backend.Domain.Service.Services.Users.Interfaces;
